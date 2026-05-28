@@ -545,10 +545,9 @@ h2.center { text-align: center; }
 .logo-item:hover { background: var(--off); }
 .logo-item img {
   max-height: 52px; max-width: 140px; width: auto; height: auto;
-  object-fit: contain; filter: grayscale(1); opacity: .6;
-  transition: filter .25s, opacity .25s;
+  object-fit: contain;
 }
-.logo-item:hover img { filter: grayscale(0); opacity: 1; }
+.logo-item:hover img { transform: scale(1.05); }
 
 /* ===========================
    CERTIFICACIONES

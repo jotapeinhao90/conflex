@@ -764,7 +764,35 @@ h2.center { text-align: center; }
 }
 .modal-foot { padding: 20px 32px; border-top: 1px solid var(--border); flex-shrink: 0; }
 
-/* Color strip en tarjeta de producto */
+/* Imagen en tarjeta de producto */
+.prod-img {
+  margin: -26px -22px 4px -22px;
+  height: 185px;
+  overflow: hidden;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  flex-shrink: 0;
+  position: relative;
+}
+.prod-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+  display: block;
+}
+.prod:hover .prod-img img { transform: scale(1.07); }
+.prod-img::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--sc, transparent);
+}
+.prod-hl .prod-img::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(10,10,5,.38);
+}
+
+/* Color strip en tarjeta de producto (legacy) */
 .prod-strip { height: 3px; border-radius: 2px; margin-bottom: 16px; margin-left: -22px; margin-right: -22px; margin-top: -26px; border-radius: var(--r-lg) var(--r-lg) 0 0; }
 .prod-detail-btn {
   display: inline-flex; align-items: center; gap: 6px;

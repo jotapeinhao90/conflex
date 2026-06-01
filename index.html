@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
 </head>
 <body>
 
@@ -74,8 +74,20 @@
 
       <div class="hero-visual">
         <div class="hero-img-wrap">
+          <div class="hero-slider" id="hero-slider">
 
-          <!-- Pipe-network animation — 3D cylindrical PVC pipes -->
+            <!-- Slide 1: Fábrica con equipo humano -->
+            <div class="hero-slide hs-active">
+              <img src="img/team-1.jpg" alt="Equipo Conflex en planta industrial" />
+              <div class="hs-overlay"></div>
+              <div class="hs-caption">
+                <span class="hs-eyebrow">Fabricación propia · Chile</span>
+                <p class="hs-title">Nuestro equipo, nuestra fábrica</p>
+              </div>
+            </div>
+
+            <!-- Slide 2: Animación SVG red de tuberías -->
+            <div class="hero-slide">
           <svg class="pv-svg" viewBox="0 0 480 340" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="pvg" width="26" height="26" patternUnits="userSpaceOnUse">
@@ -285,8 +297,24 @@
             <text x="240" y="335" text-anchor="middle" fill="rgba(255,255,255,.18)" font-size="8" font-family="'Sora',sans-serif" font-weight="700" letter-spacing=".18em">© CONFLEX</text>
 
           </svg>
+            </div><!-- /slide SVG -->
 
+            <!-- Slide 3: Segunda foto de planta -->
+            <div class="hero-slide">
+              <img src="img/team-2.jpg" alt="Planta industrial Conflex Plastiservi" />
+              <div class="hs-overlay"></div>
+              <div class="hs-caption">
+                <span class="hs-eyebrow">3 plantas · +100.000 m²</span>
+                <p class="hs-title">Directo del fabricante a tu proyecto</p>
+              </div>
+            </div>
 
+          </div><!-- /hero-slider -->
+          <div class="hero-dots" id="hero-dots">
+            <button class="hd hs-active" data-idx="0"></button>
+            <button class="hd" data-idx="1"></button>
+            <button class="hd" data-idx="2"></button>
+          </div>
         </div>
       </div><!-- /hero-visual -->
       </div><!-- /hero-inner -->
@@ -551,5 +579,24 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    (function(){
+      var slides = document.querySelectorAll('#hero-slider .hero-slide');
+      var dots   = document.querySelectorAll('#hero-dots .hd');
+      var cur = 0;
+      function goTo(n){
+        slides[cur].classList.remove('hs-active');
+        dots[cur].classList.remove('hs-active');
+        cur = ((n % slides.length) + slides.length) % slides.length;
+        slides[cur].classList.add('hs-active');
+        dots[cur].classList.add('hs-active');
+      }
+      dots.forEach(function(d,i){
+        d.addEventListener('click', function(){ goTo(i); reset(); });
+      });
+      var timer = setInterval(function(){ goTo(cur + 1); }, 3000);
+      function reset(){ clearInterval(timer); timer = setInterval(function(){ goTo(cur + 1); }, 3000); }
+    })();
+  </script>
 </body>
 </html>

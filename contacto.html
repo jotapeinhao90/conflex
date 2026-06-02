@@ -96,14 +96,15 @@
           </div>
           <form class="c-form fade-right" id="cform" onsubmit="handleSubmit(event)">
             <div class="cf-row">
-              <div class="cf-f"><label>Nombre</label><input type="text" placeholder="Tu nombre" required /></div>
-              <div class="cf-f"><label>Empresa</label><input type="text" placeholder="Tu empresa" /></div>
+              <div class="cf-f"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
+              <div class="cf-f"><label>Empresa</label><input type="text" name="empresa" placeholder="Tu empresa" /></div>
             </div>
-            <div class="cf-f"><label>Email</label><input type="email" placeholder="tu@empresa.cl" required /></div>
-            <div class="cf-f"><label>Teléfono</label><input type="tel" placeholder="+56 9 ..." /></div>
-            <div class="cf-f"><label>Mensaje</label><textarea rows="4" placeholder="¿Qué producto o sistema necesitas?" required></textarea></div>
+            <div class="cf-f"><label>Email</label><input type="email" name="email" placeholder="tu@empresa.cl" required /></div>
+            <div class="cf-f"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+56 9 ..." /></div>
+            <div class="cf-f"><label>Mensaje</label><textarea name="mensaje" rows="4" placeholder="¿Qué producto o sistema necesitas?" required></textarea></div>
             <button type="submit" class="btn-primary full" id="submit-btn">Enviar solicitud</button>
-            <div id="form-ok" class="form-ok" style="display:none">✓ Mensaje recibido. Te contactamos pronto.</div>
+            <div id="form-ok" class="form-ok" style="display:none">✓ Mensaje recibido. Te contactamos en menos de 48 horas.</div>
+            <div id="form-err" style="display:none;color:#e85c1a;font-size:13px;margin-top:10px">Hubo un error. Escríbenos directamente a jpbayas@jpbmarketing.cl</div>
           </form>
         </div>
       </div>
@@ -152,5 +153,46 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweW-i8lmp_ZwYUdlsIFqEWGWDYCZ4d4Qh3uVNp127Gt5GeYVjYvf8zzyKdvR6IOvqG/exec';
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      var form = document.getElementById('cform');
+      var btn  = document.getElementById('submit-btn');
+      var ok   = document.getElementById('form-ok');
+      var err  = document.getElementById('form-err');
+
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      ok.style.display  = 'none';
+      err.style.display = 'none';
+
+      var data = {
+        nombre:   form.querySelector('[name="nombre"]').value,
+        empresa:  form.querySelector('[name="empresa"]').value,
+        email:    form.querySelector('[name="email"]').value,
+        telefono: form.querySelector('[name="telefono"]').value,
+        mensaje:  form.querySelector('[name="mensaje"]').value
+      };
+
+      fetch(SCRIPT_URL, {
+        method:  'POST',
+        mode:    'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(data)
+      })
+      .then(function() {
+        form.reset();
+        btn.style.display = 'none';
+        ok.style.display  = 'block';
+      })
+      .catch(function() {
+        btn.textContent = 'Reintentar';
+        btn.disabled    = false;
+        err.style.display = 'block';
+      });
+    }
+  </script>
 </body>
 </html>

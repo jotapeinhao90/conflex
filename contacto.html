@@ -94,7 +94,10 @@
               </div>
             </div>
           </div>
-          <form class="c-form fade-right" id="cform" onsubmit="handleSubmit(event)">
+          <iframe name="cf_target" id="cf_target" style="display:none;" onload="cfIframeLoaded()"></iframe>
+          <form class="c-form fade-right" id="cform"
+            action="https://script.google.com/macros/s/AKfycbweW-i8lmp_ZwYUdlsIFqEWGWDYCZ4d4Qh3uVNp127Gt5GeYVjYvf8zzyKdvR6IOvqG/exec"
+            method="POST" target="cf_target" onsubmit="cfSubmit()">
             <div class="cf-row">
               <div class="cf-f"><label>Nombre</label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
               <div class="cf-f"><label>Empresa</label><input type="text" name="empresa" placeholder="Tu empresa" /></div>
@@ -104,7 +107,6 @@
             <div class="cf-f"><label>Mensaje</label><textarea name="mensaje" rows="4" placeholder="¿Qué producto o sistema necesitas?" required></textarea></div>
             <button type="submit" class="btn-primary full" id="submit-btn">Enviar solicitud</button>
             <div id="form-ok" class="form-ok" style="display:none">✓ Mensaje recibido. Te contactamos en menos de 48 horas.</div>
-            <div id="form-err" style="display:none;color:#e85c1a;font-size:13px;margin-top:10px">Hubo un error. Escríbenos directamente a jpbayas@jpbmarketing.cl</div>
           </form>
         </div>
       </div>
@@ -154,44 +156,18 @@
 
   <script src="js/main.js"></script>
   <script>
-    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweW-i8lmp_ZwYUdlsIFqEWGWDYCZ4d4Qh3uVNp127Gt5GeYVjYvf8zzyKdvR6IOvqG/exec';
-
-    function handleSubmit(e) {
-      e.preventDefault();
-      var form = document.getElementById('cform');
-      var btn  = document.getElementById('submit-btn');
-      var ok   = document.getElementById('form-ok');
-      var err  = document.getElementById('form-err');
-
+    var cfSent = false;
+    function cfSubmit() {
+      cfSent = true;
+      var btn = document.getElementById('submit-btn');
       btn.textContent = 'Enviando...';
       btn.disabled = true;
-      ok.style.display  = 'none';
-      err.style.display = 'none';
-
-      var data = {
-        nombre:   form.querySelector('[name="nombre"]').value,
-        empresa:  form.querySelector('[name="empresa"]').value,
-        email:    form.querySelector('[name="email"]').value,
-        telefono: form.querySelector('[name="telefono"]').value,
-        mensaje:  form.querySelector('[name="mensaje"]').value
-      };
-
-      fetch(SCRIPT_URL, {
-        method:  'POST',
-        mode:    'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body:    JSON.stringify(data)
-      })
-      .then(function() {
-        form.reset();
-        btn.style.display = 'none';
-        ok.style.display  = 'block';
-      })
-      .catch(function() {
-        btn.textContent = 'Reintentar';
-        btn.disabled    = false;
-        err.style.display = 'block';
-      });
+    }
+    function cfIframeLoaded() {
+      if (!cfSent) return;
+      document.getElementById('cform').reset();
+      document.getElementById('submit-btn').style.display = 'none';
+      document.getElementById('form-ok').style.display = 'block';
     }
   </script>
 </body>

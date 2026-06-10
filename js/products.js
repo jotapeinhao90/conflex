@@ -210,6 +210,36 @@ const PRODUCTS = {
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
   },
 
+  /* ---- ESPIGAS SCHEDULE ---- */
+  'sch4080-espiga-he': {
+    name: 'Terminal Espiga HE', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Terminal espiga hembra exterior para conexión directa de mangueras y racores. Perfil cónico que garantiza ajuste hermético sin adhesivo en extremos de tubería Schedule.',
+    specs: ['Espiga HE','PVC naranja Schedule','1" – 4"'],
+    hasType:false, hasClass:false,
+    sizes:['1"','1¼"','1½"','2"','2½"','3"','4"']
+  },
+  'sch4080-espiga-hi': {
+    name: 'Terminal Espiga HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Terminal espiga hembra interior para inserción en extremos de manguera o adaptadores. Compatible con Schedule 40 y 80 en aplicaciones de presión media.',
+    specs: ['Espiga HI','PVC naranja Schedule','1" – 4"'],
+    hasType:false, hasClass:false,
+    sizes:['1"','1¼"','1½"','2"','2½"','3"','4"']
+  },
+  'sch4080-espiga-copla': {
+    name: 'Copla Espiga', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Une dos tramos de tubería Schedule mediante acople espiga. Unión rápida y desmontable para tramos cortos o puntos de mantenimiento frecuente.',
+    specs: ['Acople espiga','PVC naranja Schedule','1" – 1½"'],
+    hasType:false, hasClass:false,
+    sizes:['1"','1¼"','1½"']
+  },
+  'sch4080-espiga-reduc': {
+    name: 'Reducción Espiga', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Reducción espiga para transición de diámetro en redes Schedule. Permite acoplar tramos de distinto calibre sin adhesivo, facilitando montaje y desmontaje.',
+    specs: ['Reducción espiga','PVC naranja Schedule','2"×1" – 6"×4"'],
+    hasType:false, hasClass:false,
+    sizes:['2"×1"','3"×2"','4"×3"','6"×4"']
+  },
+
   /* ---- FITTING HIDRÁULICO ---- */
   'hidraul-curvas-90': {
     name: 'Curvas 90°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
@@ -282,6 +312,41 @@ const PRODUCTS = {
     specs: ['Unión por adhesivo','Cierre permanente','PN 10','63 – 400 mm'],
     hasType:false, hasClass:false,
     sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
+  },
+  'hidraul-adaptador-gibault': {
+    name: 'Adaptador Gibault', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Unión deslizante tipo Gibault para reparación y empalme de tuberías hidráulicas sin necesidad de corte cuadrado. Permite movimiento axial y angular. PN 10.',
+    specs: ['Tipo Gibault','Deslizante — sin adhesivo','PN 10','63 – 400 mm'],
+    hasType:false, hasClass:false,
+    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
+  },
+  'hidraul-espiga-soldar': {
+    name: 'Terminal Espiga Soldar', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Terminal espiga para soldar a mangueras y acoples en redes hidráulicas de gran diámetro. Perfil cónico para ajuste hermético bajo presión.',
+    specs: ['Espiga para soldar','Material Hidráulico','2" – 8"'],
+    hasType:false, hasClass:false,
+    sizes:['2"','3"','4"','6"','8"']
+  },
+  'hidraul-espiga-copla': {
+    name: 'Copla Espiga', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Une dos tramos de tubería hidráulica mediante acople espiga. Para redes de distribución de gran diámetro donde se requiere desmontaje periódico.',
+    specs: ['Acople espiga','Material Hidráulico','2" – 8"'],
+    hasType:false, hasClass:false,
+    sizes:['2"','2½"','3"','4"','6"','8"']
+  },
+  'hidraul-copla-layflat': {
+    name: 'Copla Layflat', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Copla para mangueras layflat (planas). Permite conexión entre tramos de manguera flexible en sistemas de riego o trasvase de agua a presión media.',
+    specs: ['Para manguera layflat','Material Hidráulico','2" – 8"'],
+    hasType:false, hasClass:false,
+    sizes:['2"','3"','4"','6"','8"']
+  },
+  'hidraul-terminal-layflat': {
+    name: 'Terminal Layflat', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Terminal para extremo de manguera layflat. Conecta la manguera plana a válvulas, bombas o redes fijas con sello hermético y montaje rápido.',
+    specs: ['Para manguera layflat','Material Hidráulico','2" – 8"'],
+    hasType:false, hasClass:false,
+    sizes:['2"','3"','4"','6"','8"']
   }
 };
 

@@ -97,7 +97,7 @@
           <p style="text-align:center;color:var(--text-2);font-size:14.5px;max-width:480px;margin:10px auto 0">Haz clic en cualquier producto para ver las medidas disponibles y agregar a tu cotización.</p>
         </div>
 
-        <div class="pl-grid" id="product-grid"></div>
+        <div id="product-grid"></div>
 
         <div class="section-cta fade-up" style="margin-top:48px">
           <p>¿Necesitas asesoría técnica o cotización especial?</p>
@@ -148,7 +148,18 @@
   document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('product-grid');
     const ids  = LINES['hidraulico'].products;
-    grid.innerHTML = ids.map(id => {
+
+    const groups = [
+      { label: 'Curvas',       ids: ids.filter(id => id.includes('-curvas-')) },
+      { label: 'Coplas',       ids: ids.filter(id => id.includes('-copla-') && !id.includes('layflat')) },
+      { label: 'Reducciones',  ids: ids.filter(id => id.includes('-reduc-')) },
+      { label: 'Tapagorros',   ids: ids.filter(id => id.includes('-tapag-')) },
+      { label: 'Adaptadores',  ids: ids.filter(id => id.includes('-adaptador-')) },
+      { label: 'Espigas',      ids: ids.filter(id => id.includes('-espiga-')) },
+      { label: 'Layflat',      ids: ids.filter(id => id.includes('layflat')) },
+    ];
+
+    function cardHtml(id) {
       const p = PRODUCTS[id];
       return `
         <a href="producto.html?id=${id}" class="pl-card fade-3d">
@@ -170,7 +181,20 @@
             </div>
           </div>
         </a>`;
-    }).join('');
+    }
+
+    grid.innerHTML = groups.filter(g => g.ids.length).map((g, i) => `
+      <div style="display:flex;align-items:center;gap:14px;${i > 0 ? 'margin-top:32px;' : 'margin-top:32px;'}margin-bottom:4px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0369a1;background:#e0f2fe;padding:4px 12px;border-radius:100px;white-space:nowrap">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:middle"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>${g.label}
+        </span>
+        <div style="flex:1;height:1px;background:var(--border)"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,360px));gap:20px">
+        ${g.ids.map(cardHtml).join('')}
+      </div>
+    `).join('');
+
     document.querySelectorAll('.fade-3d').forEach(el => {
       const io = new IntersectionObserver(e => { if(e[0].isIntersecting){el.classList.add('in');io.unobserve(el);} },{threshold:.1});
       io.observe(el);

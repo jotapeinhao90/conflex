@@ -14,13 +14,13 @@
     .pl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 20px; margin-top: 40px; }
     .pl-card { background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-lg); overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: border-color .2s, box-shadow .2s, transform .2s; }
     .pl-card:hover { border-color: rgba(232,92,26,.35); box-shadow: 0 8px 28px rgba(0,0,0,.09); transform: translateY(-3px); }
-    .pl-photo { height: 175px; position: relative; background: linear-gradient(135deg,#f4f2ee 0%,#eceae3 100%); overflow: hidden; }
+    .pl-photo { aspect-ratio: 1; position: relative; background: linear-gradient(135deg,#f4f2ee 0%,#eceae3 100%); overflow: hidden; }
     .pl-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
     .pl-card:hover .pl-photo img { transform: scale(1.05); }
-    .pl-photo-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .pl-photo-ph { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
     .pl-photo-ph svg { width: 40px; height: 40px; opacity: .18; }
     .pl-photo-ph span { font-size: 11px; color: var(--text-3); }
-    .pl-photo img:not([src=""])[src]:not([src$=".jpg"]):not([src$=".png"]):not([src$=".webp"]) { display: none; }
+
     .pl-body { padding: 18px 16px 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
     .pl-name { font-size: 15.5px; font-weight: 700; color: var(--navy); }
     .pl-desc { font-size: 13px; color: var(--text-2); line-height: 1.65; flex: 1; }
@@ -147,7 +147,7 @@
         <a href="producto.html?id=${id}" class="pl-card fade-3d">
           <div class="pl-photo">
             <img src="img/products/${id}.png" alt="${p.name}" loading="lazy"
-              onerror="this.src='img/products/'+this.src.split('/').pop().replace('.png','.jpg');this.onerror=function(){this.style.display='none'}" />
+              onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
             <div class="pl-photo-ph">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               <span>Foto próximamente</span>

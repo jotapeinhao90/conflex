@@ -15,11 +15,11 @@
     .pd-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-3); }
     .pd-breadcrumb a { color: var(--text-3); text-decoration: none; } .pd-breadcrumb a:hover { color: var(--orange); }
     .pd-breadcrumb svg { width: 12px; height: 12px; }
-    .pd-photo-wrap { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4/3; position: relative; background: #f4f2ee; }
+    .pd-photo-wrap { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 1; position: relative; background: #f4f2ee; }
     .pd-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pd-photo-wrap img.hidden { display: none; }
     .pd-photo-ph {
-      position: absolute; inset: 0; display: flex; flex-direction: column;
+      display: none; position: absolute; inset: 0; flex-direction: column;
       align-items: center; justify-content: center; gap: 12px;
       background: linear-gradient(135deg, #f4f2ee 0%, #eceae4 100%);
       border: 2px dashed #d4d2cc; border-radius: var(--r-lg);
@@ -27,7 +27,7 @@
     .pd-photo-ph svg { width: 48px; height: 48px; opacity: .25; }
     .pd-photo-ph span { font-size: 12px; color: var(--text-3); font-weight: 500; }
     .pd-photo-ph small { font-size: 11px; color: var(--text-3); opacity: .7; }
-    .pd-photo-wrap img:not(.hidden) ~ .pd-photo-ph { display: none; }
+
     .pd-line-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--orange); }
     .pd-line-badge::before { content: ''; width: 18px; height: 2px; background: var(--orange); border-radius: 2px; }
     .pd-title { font-size: clamp(26px,3.5vw,38px); color: var(--navy); margin: 0; }
@@ -275,7 +275,7 @@
 
         <div class="pd-photo-wrap">
           <img id="pd-photo-img" src="img/products/${id}.png"
-            onerror="this.src='img/products/${id}.jpg';this.onerror=function(){this.classList.add('hidden')}"
+            onerror="if(this.src.endsWith('.png')){this.src='img/products/${id}.jpg'}else{this.style.display='none';var ph=this.parentElement.querySelector('.pd-photo-ph');if(ph){ph.style.display='flex';}}"
             alt="${prod.name}" />
           <div class="pd-photo-ph">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>

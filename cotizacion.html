@@ -74,10 +74,10 @@
     @keyframes ci-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
     .cot-item:hover { border-color: rgba(232,92,26,.2); box-shadow: 0 2px 12px rgba(0,0,0,.05); }
     .cot-item-thumb {
-      width: 64px; height: 64px; border-radius: var(--r); flex-shrink: 0;
+      width: 88px; height: 88px; border-radius: var(--r); flex-shrink: 0;
       background: #f8f7f4; overflow: hidden; display: flex; align-items: center; justify-content: center;
     }
-    .cot-item-thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .cot-item-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
     .cot-item-thumb svg { width: 28px; height: 28px; opacity: .18; }
     .cot-item-info { flex: 1; min-width: 0; }
     .cot-item-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
@@ -149,6 +149,12 @@
       padding: 10px 12px; font-size: 14px; font-family: 'Inter', sans-serif;
       color: var(--text); outline: none; background: var(--off);
       transition: border-color .18s, background .18s;
+    }
+    .cot-field select {
+      -webkit-appearance: none; appearance: none; cursor: pointer;
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
     }
     .cot-field input:focus, .cot-field textarea:focus, .cot-field select:focus {
       border-color: var(--orange); background: #fff;

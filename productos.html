@@ -133,6 +133,16 @@
       .anim-uv-ring:nth-child(4){width:25px;height:25px;animation-delay:1.05s}
       @keyframes uv-ring { 0%{opacity:.7;transform:scale(.5)} 100%{opacity:0;transform:scale(1)} }
 
+      /* Hydraulic pressure: pulse waves from center */
+      .cat-badge--hidraul { background:#e0f2fe; color:#0369a1; }
+      .anim-pressure { position:relative; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
+      .anim-pressure-core { width:7px; height:7px; background:#0369a1; border-radius:50%; position:relative; z-index:1; }
+      .anim-pressure-ring { position:absolute; border:1.5px solid #0369a1; border-radius:50%; opacity:0; animation:pressure-ring 1.6s ease-out infinite; }
+      .anim-pressure-ring:nth-child(2){width:13px;height:13px;animation-delay:.28s}
+      .anim-pressure-ring:nth-child(3){width:19px;height:19px;animation-delay:.56s}
+      .anim-pressure-ring:nth-child(4){width:25px;height:25px;animation-delay:.84s}
+      @keyframes pressure-ring { 0%{opacity:.8;transform:scale(.4)} 100%{opacity:0;transform:scale(1)} }
+
       .cat-info { padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
       .cat-title { font-size:16px; font-weight:700; color:var(--navy); }
       .cat-desc  { font-size:13px; color:var(--text-2); line-height:1.65; }
@@ -210,6 +220,33 @@
               <div class="cat-info">
                 <div class="cat-title">Schedule Gris UV</div>
                 <div class="cat-desc">Igual que el Schedule naranja pero con protección UV integrada. Para instalaciones expuestas al sol sin degradarse. Schedule 40 y 80, de ½" a 8".</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Fitting Hidráulico -->
+          <a href="hidraulico.html" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap">
+                <img src="img/products/cat-hidraulico.png" alt="Fitting Hidráulico" loading="lazy"
+                  onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none'}" />
+              </div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--hidraul">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
+                  Para agua a presión
+                </span>
+                <div class="anim-pressure">
+                  <div class="anim-pressure-core"></div>
+                  <div class="anim-pressure-ring"></div>
+                  <div class="anim-pressure-ring"></div>
+                  <div class="anim-pressure-ring"></div>
+                </div>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Fitting Hidráulico</div>
+                <div class="cat-desc">Curvas, coplas, reducciones y tapagorros para redes de agua potable y distribución industrial. Tipo Anger (junta elástica) y Cementar. PN 10, de 32 a 400 mm.</div>
                 <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
               </div>
             </div>

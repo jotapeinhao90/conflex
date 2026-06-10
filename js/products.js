@@ -208,6 +208,80 @@ const PRODUCTS = {
     specs: ['Roscada HI-HI + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
+  },
+
+  /* ---- FITTING HIDRÁULICO ---- */
+  'hidraul-curvas-90': {
+    name: 'Curvas 90°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Curva 90° hidráulica PVC. Cambio de dirección en redes de agua potable y distribución de fluidos a presión. Disponible en tipo Anger (junta elástica) y Cementar (adhesivo). PN 10.',
+    specs: ['Material Hidráulico PVC','Tipo Anger y Cementar','PN 10','32 – 400 mm'],
+    hasType:true, hasClass:false, typeLabel:'Tipo de unión',
+    types:{
+      'Anger':  ['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm'],
+      'Cementar':['32mm','40mm','50mm','63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm']
+    }
+  },
+  'hidraul-curvas-45': {
+    name: 'Curvas 45°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Desviación suave a 45° para redes hidráulicas. Menor pérdida de carga que una curva de 90°. Ideal para instalaciones que requieren cambios de dirección gradual.',
+    specs: ['Material Hidráulico PVC','Tipo Anger y Cementar','PN 10','32 – 400 mm'],
+    hasType:true, hasClass:false, typeLabel:'Tipo de unión',
+    types:{
+      'Anger':  ['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm'],
+      'Cementar':['32mm','40mm','50mm','63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm']
+    }
+  },
+  'hidraul-curvas-225': {
+    name: 'Curvas 22,5°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Desviación mínima de 22,5° para ajustes de trayecto en redes de distribución de agua. Mínima turbulencia y pérdida de presión. Tipo Anger y Cementar.',
+    specs: ['Material Hidráulico PVC','Tipo Anger y Cementar','PN 10','32 – 400 mm'],
+    hasType:true, hasClass:false, typeLabel:'Tipo de unión',
+    types:{
+      'Anger':  ['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm'],
+      'Cementar':['32mm','40mm','50mm','63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm']
+    }
+  },
+  'hidraul-copla-rep': {
+    name: 'Coplas de Reparación', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Unión deslizante para reparar tramos de tubería sin desmontar la red. No requiere corte cuadrado. Tipo Anger con junta elástica. PN 10.',
+    specs: ['Junta elástica Anger','Sin adhesivo','PN 10','63 – 400 mm'],
+    hasType:false, hasClass:false,
+    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
+  },
+  'hidraul-copla-cem': {
+    name: 'Coplas Cementar', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Une dos tramos de tubería hidráulica con adhesivo PVC. Unión permanente y hermética para agua potable y fluidos a presión. PN 10.',
+    specs: ['Unión por adhesivo','Material Hidráulico PVC','PN 10','63 – 400 mm'],
+    hasType:false, hasClass:false,
+    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
+  },
+  'hidraul-reduc-anger': {
+    name: 'Reducciones Anger', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Reducción concéntrica con junta elástica Anger para transición entre diámetros en redes hidráulicas. Sin adhesivo, instalación rápida en campo. PN 10.',
+    specs: ['Junta elástica Anger','PN 10','63×40 – 400×355 mm'],
+    hasType:false, hasClass:false,
+    sizes:['63×40mm','63×50mm','75×50mm','75×63mm','90×63mm','90×75mm','110×63mm','110×75mm','110×90mm','125×90mm','125×110mm','140×90mm','140×110mm','140×125mm','160×110mm','160×125mm','160×140mm','180×160mm','200×140mm','200×160mm','200×180mm','250×160mm','250×200mm','315×200mm','315×250mm','355×250mm','355×315mm','400×315mm','400×355mm']
+  },
+  'hidraul-reduc-cem': {
+    name: 'Reducciones Cementar', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Reducción concéntrica por adhesivo para transición de diámetros. Unión permanente en redes de agua potable y distribución industrial. PN 10.',
+    specs: ['Unión por adhesivo','PN 10','25×20 – 400×355 mm'],
+    hasType:false, hasClass:false,
+    sizes:['25×20mm','32×20mm','32×25mm','40×25mm','40×32mm','50×32mm','50×40mm','63×40mm','63×50mm','75×40mm','75×50mm','75×63mm','90×63mm','90×75mm','110×63mm','110×75mm','110×90mm','125×90mm','125×110mm','140×90mm','140×110mm','140×125mm','160×110mm','160×125mm','160×140mm','180×160mm','200×140mm','200×160mm','200×180mm','250×160mm','250×200mm','315×200mm','315×250mm','355×250mm','355×315mm','400×315mm','400×355mm']
+  },
+  'hidraul-tapag-anger': {
+    name: 'Tapagorros Anger', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Tapa ciega con junta elástica Anger para sellar extremos de tubería hidráulica. Permite apertura y cierre sin dañar la tubería. PN 10.',
+    specs: ['Junta elástica Anger','Desmontable','PN 10','63 – 400 mm'],
+    hasType:false, hasClass:false,
+    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
+  },
+  'hidraul-tapag-cem': {
+    name: 'Tapagorros Cementar', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Tapa ciega adhesiva para sellar permanentemente extremos de tubería hidráulica. Para instalaciones sin retorno o terminaciones definitivas. PN 10.',
+    specs: ['Unión por adhesivo','Cierre permanente','PN 10','63 – 400 mm'],
+    hasType:false, hasClass:false,
+    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
   }
 };
 
@@ -230,5 +304,11 @@ const LINES = {
     desc: 'PVC gris con protección UV para exteriores e intemperie.',
     color: '#4a7c59',
     products: Object.keys(PRODUCTS).filter(k => k.startsWith('grisuv-'))
+  },
+  'hidraulico': {
+    title: 'Fitting Hidráulico',
+    desc: 'Accesorios PVC para redes de agua a presión. Tipo Anger y Cementar. PN 10.',
+    color: '#0369a1',
+    products: Object.keys(PRODUCTS).filter(k => k.startsWith('hidraul-'))
   }
 };

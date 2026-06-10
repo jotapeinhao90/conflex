@@ -149,14 +149,15 @@
     const grid = document.getElementById('product-grid');
     const ids  = LINES['hidraulico'].products;
 
+    // Grupos con sus anchors para navegación desde productos.html
     const groups = [
-      { label: 'Curvas',       ids: ids.filter(id => id.includes('-curvas-')) },
-      { label: 'Coplas',       ids: ids.filter(id => id.includes('-copla-') && !id.includes('layflat')) },
-      { label: 'Reducciones',  ids: ids.filter(id => id.includes('-reduc-')) },
-      { label: 'Tapagorros',   ids: ids.filter(id => id.includes('-tapag-')) },
-      { label: 'Adaptadores',  ids: ids.filter(id => id.includes('-adaptador-')) },
-      { label: 'Espigas',      ids: ids.filter(id => id.includes('-espiga-')) },
-      { label: 'Layflat',      ids: ids.filter(id => id.includes('layflat')) },
+      { label: 'Curvas',      id: 'curvas',  ids: ids.filter(id => id.includes('-curvas-')) },
+      { label: 'Coplas',      id: 'coplas',  ids: ids.filter(id => id.includes('-copla-') && !id.includes('layflat')) },
+      { label: 'Reducciones', id: null,      ids: ids.filter(id => id.includes('-reduc-')) },
+      { label: 'Tapagorros',  id: null,      ids: ids.filter(id => id.includes('-tapag-')) },
+      { label: 'Adaptadores', id: null,      ids: ids.filter(id => id.includes('-adaptador-')) },
+      { label: 'Espigas',     id: 'espigas', ids: ids.filter(id => id.includes('-espiga-')) },
+      { label: 'Layflat',     id: null,      ids: ids.filter(id => id.includes('layflat')) },
     ];
 
     function cardHtml(id) {
@@ -183,8 +184,8 @@
         </a>`;
     }
 
-    grid.innerHTML = groups.filter(g => g.ids.length).map((g, i) => `
-      <div style="display:flex;align-items:center;gap:14px;${i > 0 ? 'margin-top:32px;' : 'margin-top:32px;'}margin-bottom:4px">
+    grid.innerHTML = groups.filter(g => g.ids.length).map(g => `
+      <div ${g.id ? `id="${g.id}"` : ''} style="display:flex;align-items:center;gap:14px;margin-top:32px;margin-bottom:4px">
         <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0369a1;background:#e0f2fe;padding:4px 12px;border-radius:100px;white-space:nowrap">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:middle"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>${g.label}
         </span>

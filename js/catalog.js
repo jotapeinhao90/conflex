@@ -151,7 +151,7 @@ function initSelectors(products, lineName) {
     function updateSummary() {
       if (!summaryEl) return;
       if (!selSize) { summaryEl.classList.remove('show'); if (addBtn) addBtn.disabled = true; return; }
-      const parts = [prod.title];
+      const parts = [prod.name];
       if (selType)  parts.push(selType);
       if (selClass) parts.push('Clase ' + selClass);
       parts.push(selSize);
@@ -190,7 +190,7 @@ function initSelectors(products, lineName) {
         const id  = [pid, selType, selClass, selSize].filter(Boolean).join('_').replace(/[^a-zA-Z0-9_]/g, '-');
         const qtyEl = card.querySelector('.cp-qty-input');
         const qty = qtyEl ? parseInt(qtyEl.value) || 1 : 1;
-        addCartItem({ id, line: lineName, product: prod.title, variant: selType || '', clase: selClass || '', size: selSize }, qty);
+        addCartItem({ id, line: lineName, product: prod.name, variant: selType || '', clase: selClass || '', size: selSize }, qty);
         addBtn.textContent = '✓ Agregado';
         addBtn.disabled = true;
         if (addedMsg) addedMsg.classList.add('show');

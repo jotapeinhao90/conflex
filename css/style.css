@@ -145,6 +145,22 @@ h2.center { text-align: center; }
 }
 .nav-cta:hover { background: var(--orange-2); transform: translateY(-1px); }
 
+.nav-cart-btn {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 10px; color: var(--navy);
+  background: var(--off); border: 1.5px solid var(--border);
+  text-decoration: none; flex-shrink: 0;
+  transition: background .18s, border-color .18s;
+}
+.nav-cart-btn:hover { background: #ece9e2; border-color: var(--orange); }
+.nav-cart-count {
+  position: absolute; top: -6px; right: -6px;
+  background: var(--orange); color: #fff;
+  font-size: 10px; font-weight: 700; line-height: 1;
+  padding: 2px 5px; border-radius: 100px; min-width: 18px; text-align: center;
+  border: 1.5px solid #fff;
+}
+
 .burger {
   display: none; flex-direction: column; gap: 5px;
   background: none; border: none; cursor: pointer; padding: 6px; margin-left: auto; flex-shrink: 0;

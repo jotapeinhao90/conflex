@@ -90,6 +90,29 @@ function loadVideo() {
 }
 
 /* =====================
+   Nav cart badge (all pages)
+   ===================== */
+(function navCart() {
+  function getCount() {
+    try { return (JSON.parse(localStorage.getItem('conflex_cart'))||[]).reduce((s,i)=>s+(i.qty||1),0); } catch { return 0; }
+  }
+  function render() {
+    const count = getCount();
+    const badge = document.getElementById('cart-count');
+    if (!badge) return;
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = '';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+  render();
+  window.addEventListener('storage', render);
+  setInterval(render, 1500);
+})();
+
+/* =====================
    Contact form
    ===================== */
 function handleSubmit(e) {

@@ -156,6 +156,10 @@
 
   <script src="js/main.js"></script>
   <script>
+    (function() {
+      const p = new URLSearchParams(window.location.search).get('msg');
+      if (p) { const t = document.querySelector('textarea[name="mensaje"]'); if (t) t.value = decodeURIComponent(p); }
+    })();
     var cfSent = false;
     function cfSubmit() {
       cfSent = true;

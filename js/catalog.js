@@ -45,7 +45,7 @@ function refreshFloat() {
   const floatEl = document.getElementById('quote-float');
   const cntEl   = document.getElementById('qf-count');
   if (!floatEl) return;
-  cntEl.textContent = total;
+  if (cntEl) cntEl.textContent = total;
   floatEl.classList.toggle('show', total > 0);
 }
 

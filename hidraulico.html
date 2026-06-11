@@ -99,6 +99,9 @@
           <p style="text-align:center;color:var(--text-2);font-size:14.5px;max-width:480px;margin:10px auto 0">Haz clic en cualquier producto para ver las medidas disponibles y agregar a tu cotización.</p>
         </div>
 
+        <!-- Filtros -->
+        <div id="filters" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;justify-content:center"></div>
+
         <div id="product-grid"></div>
 
         <div class="section-cta fade-up" style="margin-top:48px">
@@ -148,19 +151,19 @@
   <script src="js/products.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.getElementById('product-grid');
-    const ids  = LINES['hidraulico'].products;
+    const grid    = document.getElementById('product-grid');
+    const filtersEl = document.getElementById('filters');
+    const ids     = LINES['hidraulico'].products;
 
-    // Grupos con sus anchors para navegación desde productos.html
     const groups = [
-      { label: 'Curvas',      id: 'curvas',  ids: ids.filter(id => id.includes('-curvas-')) },
-      { label: 'Coplas',      id: 'coplas',  ids: ids.filter(id => id.includes('-copla-') && !id.includes('layflat')) },
-      { label: 'Reducciones', id: null,      ids: ids.filter(id => id.includes('-reduc-')) },
-      { label: 'Tapagorros',  id: null,      ids: ids.filter(id => id.includes('-tapag-')) },
-      { label: 'Adaptadores', id: null,      ids: ids.filter(id => id.includes('-adaptador-')) },
-      { label: 'Espigas',     id: 'espigas', ids: ids.filter(id => id.includes('-espiga-')) },
-      { label: 'Layflat',     id: null,      ids: ids.filter(id => id.includes('layflat')) },
-    ];
+      { label: 'Curvas',      id: 'curvas',      ids: ids.filter(id => id.includes('-curvas-')) },
+      { label: 'Coplas',      id: 'coplas',      ids: ids.filter(id => id.includes('-copla-') && !id.includes('layflat')) },
+      { label: 'Reducciones', id: 'reducciones', ids: ids.filter(id => id.includes('-reduc-')) },
+      { label: 'Tapagorros',  id: 'tapagorros',  ids: ids.filter(id => id.includes('-tapag-')) },
+      { label: 'Adaptadores', id: 'adaptadores', ids: ids.filter(id => id.includes('-adaptador-')) },
+      { label: 'Espigas',     id: 'espigas',     ids: ids.filter(id => id.includes('-espiga-')) },
+      { label: 'Layflat',     id: 'layflat',     ids: ids.filter(id => id.includes('layflat')) },
+    ].filter(g => g.ids.length);
 
     function cardHtml(id) {
       const p = PRODUCTS[id];
@@ -186,22 +189,62 @@
         </a>`;
     }
 
-    grid.innerHTML = groups.filter(g => g.ids.length).map(g => `
-      <div ${g.id ? `id="${g.id}"` : ''} style="display:flex;align-items:center;gap:14px;margin-top:32px;margin-bottom:4px">
-        <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0369a1;background:#e0f2fe;padding:4px 12px;border-radius:100px;white-space:nowrap">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:middle"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>${g.label}
-        </span>
-        <div style="flex:1;height:1px;background:var(--border)"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,360px));gap:20px">
-        ${g.ids.map(cardHtml).join('')}
-      </div>
-    `).join('');
+    function renderGroups(activeId) {
+      const visible = activeId === 'all' ? groups : groups.filter(g => g.id === activeId);
+      grid.innerHTML = visible.map(g => `
+        <div id="${g.id}" class="group-block" style="margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:14px;margin-top:32px;margin-bottom:12px">
+            <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0369a1;background:#e0f2fe;padding:4px 12px;border-radius:100px;white-space:nowrap">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:middle"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>${g.label}
+            </span>
+            <div style="flex:1;height:1px;background:var(--border)"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px">
+            ${g.ids.map(cardHtml).join('')}
+          </div>
+        </div>
+      `).join('');
+      document.querySelectorAll('.fade-3d').forEach(el => {
+        const io = new IntersectionObserver(e => { if(e[0].isIntersecting){el.classList.add('in');io.unobserve(el);} },{threshold:.1});
+        io.observe(el);
+      });
+    }
 
-    document.querySelectorAll('.fade-3d').forEach(el => {
-      const io = new IntersectionObserver(e => { if(e[0].isIntersecting){el.classList.add('in');io.unobserve(el);} },{threshold:.1});
-      io.observe(el);
+    // Render filter buttons
+    const allFilters = [{ label: 'Todos', id: 'all' }, ...groups];
+    filtersEl.innerHTML = allFilters.map(f => `
+      <button class="hid-filter" data-id="${f.id}"
+        style="font-size:13px;font-weight:600;padding:7px 16px;border-radius:100px;border:1.5px solid ${f.id==='all'?'#0369a1':'var(--border)'};background:${f.id==='all'?'#0369a1':'#fff'};color:${f.id==='all'?'#fff':'var(--text-2)'};cursor:pointer;transition:all .18s">
+        ${f.label}
+      </button>`).join('');
+
+    filtersEl.addEventListener('click', e => {
+      const btn = e.target.closest('.hid-filter');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      filtersEl.querySelectorAll('.hid-filter').forEach(b => {
+        const active = b.dataset.id === id;
+        b.style.background = active ? '#0369a1' : '#fff';
+        b.style.color      = active ? '#fff' : 'var(--text-2)';
+        b.style.borderColor = active ? '#0369a1' : 'var(--border)';
+      });
+      renderGroups(id);
     });
+
+    // Check for hash anchor from productos.html
+    const hash = location.hash.replace('#','');
+    const matchedGroup = groups.find(g => g.id === hash);
+    if (matchedGroup) {
+      // Activate the matching filter button
+      setTimeout(() => {
+        const btn = filtersEl.querySelector(`[data-id="${hash}"]`);
+        if (btn) btn.click();
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    } else {
+      renderGroups('all');
+    }
   });
   </script>
 </body>

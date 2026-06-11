@@ -149,10 +149,22 @@
       .anim-pressure-ring:nth-child(4){width:25px;height:25px;animation-delay:.84s}
       @keyframes pressure-ring { 0%{opacity:.8;transform:scale(.4)} 100%{opacity:0;transform:scale(1)} }
 
+      .cat-card { min-height: 420px; }
       .cat-info { padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
       .cat-title { font-size:16px; font-weight:700; color:var(--navy); }
-      .cat-desc  { font-size:13px; color:var(--text-2); line-height:1.65; }
-      .cat-link  { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--orange); margin-top:auto; padding-top:6px; }
+      .cat-desc  { font-size:13px; color:var(--text-2); line-height:1.65; flex:1; }
+      .cat-link  { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--orange); padding-top:6px; }
+
+      /* Zonas */
+      .prod-zone { border-radius:16px; padding:28px 28px 32px; margin-top:32px; }
+      .prod-zone--elec  { background:#fffbf7; border:1.5px solid #fde8d0; border-left:4px solid #e85c1a; }
+      .prod-zone--hidraul { background:#f0f9ff; border:1.5px solid #bae6fd; border-left:4px solid #0369a1; }
+      .prod-zone-head { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
+      .prod-zone-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+      .prod-zone--elec  .prod-zone-icon { background:#fff3e0; }
+      .prod-zone--hidraul .prod-zone-icon { background:#e0f2fe; }
+      .prod-zone-title { font-size:17px; font-weight:700; color:var(--navy); margin:0 0 2px; }
+      .prod-zone-sub   { font-size:13px; color:var(--text-2); margin:0; }
     </style>
     <section class="section" style="padding-bottom:0">
       <div class="container">
@@ -161,14 +173,19 @@
           <h2 class="center">Elige tu producto y medida</h2>
           <p style="text-align:center;color:var(--text-2);font-size:15px;margin-top:8px;max-width:520px;margin-left:auto;margin-right:auto">Selecciona tipo, clase y diámetro. Agrega a tu cotización en segundos.</p>
         </div>
-        <!-- Separador Eléctrico -->
-        <div style="display:flex;align-items:center;gap:14px;margin-top:32px;margin-bottom:4px">
-          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#b45309;background:#fff8e6;padding:4px 12px;border-radius:100px;white-space:nowrap">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:middle"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Eléctrico e Industrial
-          </span>
-          <div style="flex:1;height:1px;background:var(--border)"></div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+
+        <!-- ZONA ELÉCTRICO E INDUSTRIAL -->
+        <div class="prod-zone prod-zone--elec">
+          <div class="prod-zone-head">
+            <div class="prod-zone-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#e85c1a"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div>
+              <p class="prod-zone-title">Eléctrico e Industrial</p>
+              <p class="prod-zone-sub">Conduit para cables · Schedule para uso industrial pesado y exteriores UV</p>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
 
           <!-- Conduit -->
           <a href="conduit.html" style="text-decoration:none">
@@ -240,16 +257,21 @@
             </div>
           </a>
 
+          </div>
         </div>
 
-        <!-- Separador Hidráulico -->
-        <div style="display:flex;align-items:center;gap:14px;margin-top:28px;margin-bottom:4px">
-          <span style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0369a1;background:#e0f2fe;padding:4px 12px;border-radius:100px;white-space:nowrap">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-right:4px;vertical-align:middle"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>Hidráulico
-          </span>
-          <div style="flex:1;height:1px;background:var(--border)"></div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+        <!-- ZONA HIDRÁULICO -->
+        <div class="prod-zone prod-zone--hidraul">
+          <div class="prod-zone-head">
+            <div class="prod-zone-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#0369a1"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
+            </div>
+            <div>
+              <p class="prod-zone-title">Hidráulico</p>
+              <p class="prod-zone-sub">Fitting PVC para agua potable y redes de distribución a presión PN 10</p>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
 
           <!-- Curvas Hidráulicas -->
           <a href="hidraulico.html#curvas" style="text-decoration:none">
@@ -329,7 +351,9 @@
             </div>
           </a>
 
+          </div>
         </div>
+
       </div>
     </section>
 

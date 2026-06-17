@@ -153,6 +153,8 @@ function initCatalogFilters(opts) {
   if (accent) document.documentElement.style.setProperty('--plf-accent', accent);
   if (accentTint) document.documentElement.style.setProperty('--plf-accent-tint', accentTint);
 
+  const selected = new Set(); // empty Set = "Todos" (mostrar todo)
+
   function cardHtml(id) {
     const p = PRODUCTS[id];
     return `
@@ -177,8 +179,8 @@ function initCatalogFilters(opts) {
       </a>`;
   }
 
-  function renderGrid(activeId) {
-    const visible = activeId === 'all' ? resolved : resolved.filter(g => g.id === activeId);
+  function renderGrid() {
+    const visible = selected.size === 0 ? resolved : resolved.filter(g => selected.has(g.id));
     gridEl.innerHTML = visible.map(g => `
       <div id="${g.id}" class="plf-group-head">
         <span class="plf-group-tag">
@@ -195,41 +197,54 @@ function initCatalogFilters(opts) {
     });
   }
 
-  function chipHtml(id, label, count, active) {
+  function chipHtml(id, label, count) {
     return `
-      <button class="plf-chip${active ? ' active' : ''}" data-id="${id}" type="button">
+      <button class="plf-chip" data-id="${id}" type="button">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[id] || PLF_ICONS.curvas}</svg>
         <span>${label}</span>
         <span class="plf-count">${count}</span>
       </button>`;
   }
 
-  function setActiveChip(id) {
-    filtersEl.querySelectorAll('.plf-chip').forEach(b => b.classList.toggle('active', b.dataset.id === id));
+  function renderChips() {
+    filtersEl.querySelectorAll('.plf-chip').forEach(b => {
+      const active = b.dataset.id === 'all' ? selected.size === 0 : selected.has(b.dataset.id);
+      b.classList.toggle('active', active);
+    });
   }
 
-  filtersEl.innerHTML = chipHtml('all', 'Todos', allIds.length, true) +
-    resolved.map(g => chipHtml(g.id, g.label, g.ids.length, false)).join('');
+  function syncHash() {
+    if (selected.size === 0) history.replaceState(null, '', location.pathname);
+    else history.replaceState(null, '', '#' + Array.from(selected).join(','));
+  }
+
+  filtersEl.innerHTML = chipHtml('all', 'Todos', allIds.length) +
+    resolved.map(g => chipHtml(g.id, g.label, g.ids.length)).join('');
 
   filtersEl.addEventListener('click', e => {
     const btn = e.target.closest('.plf-chip');
     if (!btn) return;
     const id = btn.dataset.id;
-    setActiveChip(id);
-    renderGrid(id);
-    if (id !== 'all') history.replaceState(null, '', '#' + id);
-    else history.replaceState(null, '', location.pathname);
+    if (id === 'all') selected.clear();
+    else if (selected.has(id)) selected.delete(id);
+    else selected.add(id);
+    renderChips();
+    renderGrid();
+    syncHash();
   });
 
-  const hash = location.hash.replace('#', '');
-  if (resolved.find(g => g.id === hash)) {
-    setActiveChip(hash);
-    renderGrid(hash);
+  const hashIds = location.hash.replace('#', '').split(',').filter(Boolean);
+  const validHashIds = hashIds.filter(h => resolved.find(g => g.id === h));
+  if (validHashIds.length) {
+    validHashIds.forEach(id => selected.add(id));
+    renderChips();
+    renderGrid();
     setTimeout(() => {
-      const el = document.getElementById(hash);
+      const el = document.getElementById(validHashIds[0]);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 80);
   } else {
-    renderGrid('all');
+    renderChips();
+    renderGrid();
   }
 }

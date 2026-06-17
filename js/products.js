@@ -6,7 +6,7 @@ const PRODUCTS = {
   /* ---- LÍNEA CONDUIT ---- */
   'conduit-curvas-90': {
     name: 'Curvas 90°', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Permite cambios de dirección a 90° en cañerías conduit. Disponible en tipo Cementar (adhesivo) y Anger (presión/rosca). Clases I–IV según resistencia mecánica.',
+    desc: 'Permite cambios de dirección a 90° en cañerías conduit. Disponible en tipo Cementar (adhesivo) y Anger (junta elástica, sin adhesivo). Clases I–IV según resistencia mecánica.',
     specs: ['Norma IEC 61386','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
@@ -16,7 +16,7 @@ const PRODUCTS = {
   },
   'conduit-curvas-45': {
     name: 'Curvas 45°', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Cambio de dirección suave a 45° para trayectos que requieren una desviación gradual. Menor tensión sobre el cable que una curva de 90°. Tipos Cementar y Anger.',
+    desc: 'Cambio de dirección suave a 45° para trayectos que requieren una desviación gradual. Menor tensión sobre el cable que una curva de 90°. Tipo Cementar (adhesivo) o Anger (junta elástica).',
     specs: ['Norma IEC 61386','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
@@ -26,7 +26,7 @@ const PRODUCTS = {
   },
   'conduit-curvas-r600': {
     name: 'Curvas 90° Radio 600', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Radio largo (R=600mm) para tendido de cables sin dañar el aislamiento. Esencial en instalaciones industriales de alta exigencia. Tipos Cementar y Anger.',
+    desc: 'Radio largo (R=600mm) para tendido de cables sin dañar el aislamiento. Esencial en instalaciones industriales de alta exigencia. Tipo Cementar (adhesivo) o Anger (junta elástica).',
     specs: ['Radio R=600mm','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
@@ -50,7 +50,7 @@ const PRODUCTS = {
   },
   'conduit-terminal-cam': {
     name: 'Terminal Cámara', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Conexión de cañería conduit a cámaras de registro o cajas eléctricas. Terminación limpia y sellada en el punto de ingreso. Tipos Cementar y Anger, Clases I–IV.',
+    desc: 'Conexión de cañería conduit a cámaras de registro o cajas eléctricas. Terminación limpia y sellada en el punto de ingreso. Tipo Cementar (adhesivo) o Anger (junta elástica), Clases I–IV.',
     specs: ['Norma IEC 61386','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
@@ -60,7 +60,7 @@ const PRODUCTS = {
   },
   'conduit-terminal-he': {
     name: 'Terminal HE', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Terminal Hembra Exterior: extremo roscado hacia afuera para conexión a tableros y cajas eléctricas. Clases II y III.',
+    desc: 'Terminal HE (hilo exterior): extremo con rosca macho para conectar a accesorios con rosca hembra, tableros y cajas eléctricas. Clases II y III.',
     specs: ['Rosca exterior (HE)','Clases II y III','110 – 160 mm'],
     hasType:false, hasClass:true,
     classes:{'II':['140mm','160mm'],'III':['110mm','140mm','160mm']}
@@ -111,7 +111,7 @@ const PRODUCTS = {
   },
   'sch4080-terminal-he': {
     name: 'Terminal HE', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Terminal Hembra Exterior: extremo roscado hacia afuera para conexión a tableros. Schedule 40 y 80, de 1/2" a 6".',
+    desc: 'Terminal HE (hilo exterior): extremo con rosca macho para conectar a accesorios con rosca hembra y tableros. Schedule 40 y 80, de 1/2" a 6".',
     specs: ['Rosca exterior (HE)','Schedule 40 y 80','1/2" – 6"'],
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
@@ -125,7 +125,7 @@ const PRODUCTS = {
   },
   'sch4080-terminal-hi': {
     name: 'Terminal HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Terminal Hembra Interior: roscado interior para acoplamiento de tuberías con rosca macho. Schedule 40 y 80, de 1/2" a 6".',
+    desc: 'Terminal HI (hilo interior): rosca hembra para recibir accesorios o tuberías con rosca macho. Schedule 40 y 80, de 1/2" a 6".',
     specs: ['Rosca interior (HI)','Schedule 40 y 80','1/2" – 6"'],
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
@@ -190,7 +190,7 @@ const PRODUCTS = {
   },
   'grisuv-terminal-hi': {
     name: 'Terminal HI Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
-    desc: 'Terminal Hembra Interior con protección UV para exteriores. Roscado interior con durabilidad aumentada para la intemperie.',
+    desc: 'Terminal HI (hilo interior) con protección UV para exteriores. Rosca hembra con durabilidad aumentada para la intemperie.',
     specs: ['Rosca interior + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
@@ -213,29 +213,29 @@ const PRODUCTS = {
   /* ---- ESPIGAS SCHEDULE ---- */
   'sch4080-espiga-he': {
     name: 'Terminal Espiga HE', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Terminal espiga hembra exterior para conexión directa de mangueras y racores. Perfil cónico que garantiza ajuste hermético sin adhesivo en extremos de tubería Schedule.',
-    specs: ['Espiga HE','PVC naranja Schedule','1" – 4"'],
+    desc: 'Combina un extremo con rosca macho (hilo exterior) y un extremo espiga cónico para conectar mangueras flexibles mediante abrazadera. Ideal para enlazar manguera con válvulas, filtros o bombas.',
+    specs: ['Rosca HE + espiga para manguera','PVC naranja Schedule','1" – 4"'],
     hasType:false, hasClass:false,
     sizes:['1"','1¼"','1½"','2"','2½"','3"','4"']
   },
   'sch4080-espiga-hi': {
     name: 'Terminal Espiga HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Terminal espiga hembra interior para inserción en extremos de manguera o adaptadores. Compatible con Schedule 40 y 80 en aplicaciones de presión media.',
-    specs: ['Espiga HI','PVC naranja Schedule','1" – 4"'],
+    desc: 'Combina un extremo con rosca hembra (hilo interior) y un extremo espiga cónico para conectar mangueras flexibles mediante abrazadera. Recibe accesorios con rosca macho.',
+    specs: ['Rosca HI + espiga para manguera','PVC naranja Schedule','1" – 4"'],
     hasType:false, hasClass:false,
     sizes:['1"','1¼"','1½"','2"','2½"','3"','4"']
   },
   'sch4080-espiga-copla': {
     name: 'Copla Espiga', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Une dos tramos de tubería Schedule mediante acople espiga. Unión rápida y desmontable para tramos cortos o puntos de mantenimiento frecuente.',
-    specs: ['Acople espiga','PVC naranja Schedule','1" – 1½"'],
+    desc: 'Une dos tramos de manguera flexible mediante dos extremos espiga cónicos y abrazaderas. Unión rápida y desmontable, sin adhesivo.',
+    specs: ['Acople espiga para manguera','PVC naranja Schedule','1" – 1½"'],
     hasType:false, hasClass:false,
     sizes:['1"','1¼"','1½"']
   },
   'sch4080-espiga-reduc': {
     name: 'Reducción Espiga', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Reducción espiga para transición de diámetro en redes Schedule. Permite acoplar tramos de distinto calibre sin adhesivo, facilitando montaje y desmontaje.',
-    specs: ['Reducción espiga','PVC naranja Schedule','2"×1" – 6"×4"'],
+    desc: 'Reducción con dos extremos espiga cónicos de distinto diámetro para unir mangueras de distinto calibre mediante abrazaderas, sin adhesivo.',
+    specs: ['Reducción espiga para manguera','PVC naranja Schedule','2"×1" – 6"×4"'],
     hasType:false, hasClass:false,
     sizes:['2"×1"','3"×2"','4"×3"','6"×4"']
   },

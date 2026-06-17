@@ -89,15 +89,21 @@
       </div>
     </div>
 
-    <section class="section">
+    <section class="section" style="padding-top:48px">
       <div class="container">
         <div class="sec-head fade-up" style="margin-bottom:0">
           <p class="eyebrow center">9 productos</p>
           <h2 class="center">Selecciona el producto</h2>
           <p style="text-align:center;color:var(--text-2);font-size:14.5px;max-width:480px;margin:10px auto 0">Haz clic en cualquier producto para ver las medidas disponibles y agregar a tu cotización.</p>
         </div>
+      </div>
 
-        <div class="pl-grid" id="product-grid"></div>
+      <div class="plf-bar" style="margin-top:28px">
+        <div class="container"><div class="plf-scroll" id="filters"></div></div>
+      </div>
+
+      <div class="container">
+        <div id="product-grid" style="margin-top:8px"></div>
 
         <div class="section-cta fade-up" style="margin-top:48px">
           <p>¿Necesitas asesoría técnica o cotización especial?</p>
@@ -148,34 +154,16 @@
   <script src="js/products.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.getElementById('product-grid');
-    const ids  = LINES['schedule-gris-uv'].products;
-    grid.innerHTML = ids.map(id => {
-      const p = PRODUCTS[id];
-      return `
-        <a href="producto.html?id=${id}" class="pl-card fade-3d">
-          <div class="pl-photo">
-            <img src="img/products/${id}.png" alt="${p.name}" loading="lazy"
-              onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
-            <div class="pl-photo-ph">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              <span>Foto próximamente</span>
-            </div>
-          </div>
-          <div class="pl-body">
-            <div class="pl-name">${p.name}</div>
-            <div class="pl-desc">${p.desc.split('.')[0]}.</div>
-            <div class="pl-tags">${p.specs.map(s=>`<span class="pl-tag">${s}</span>`).join('')}</div>
-            <div class="pl-cta">
-              <span>Ver medidas y cotizar</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </div>
-        </a>`;
-    }).join('');
-    document.querySelectorAll('.fade-3d').forEach(el => {
-      const io = new IntersectionObserver(e => { if(e[0].isIntersecting){el.classList.add('in');io.unobserve(el);} },{threshold:.1});
-      io.observe(el);
+    initCatalogFilters({
+      lineSlug: 'schedule-gris-uv',
+      accent: '#4a7c59', accentTint: '#eef6f0',
+      gridEl: document.getElementById('product-grid'),
+      filtersEl: document.getElementById('filters'),
+      groups: [
+        { id: 'curvas',     label: 'Curvas',     match: id => id.includes('curvas') },
+        { id: 'terminales', label: 'Terminales', match: id => id.includes('terminal-') },
+        { id: 'coplas',     label: 'Coplas',      match: id => id.includes('-copla-') }
+      ]
     });
   });
   </script>

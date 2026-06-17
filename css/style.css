@@ -1106,3 +1106,55 @@ h2.center { text-align: center; }
 @media (max-width: 480px) {
   .cat-cards { grid-template-columns: 1fr; }
 }
+
+/* ===========================
+   CATALOG FILTER BAR (conduit / schedule / hidraulico)
+   =========================== */
+:root { --plf-accent: var(--orange); --plf-accent-tint: #fef1ea; }
+.plf-bar {
+  position: sticky; top: 96px; z-index: 30;
+  background: rgba(255,255,255,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.plf-scroll {
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px 0; overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.plf-scroll::-webkit-scrollbar { display: none; }
+.plf-chip {
+  display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+  padding: 8px 16px; border-radius: 100px; border: 1.5px solid var(--border);
+  background: #fff; color: var(--text-2); font-size: 13.5px; font-weight: 600;
+  font-family: 'Inter', sans-serif; cursor: pointer; white-space: nowrap;
+  transition: background .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease);
+}
+.plf-chip svg { opacity: .6; flex-shrink: 0; transition: opacity .18s; }
+.plf-chip:hover { border-color: var(--plf-accent); color: var(--text); }
+.plf-chip:hover svg { opacity: 1; }
+.plf-chip .plf-count {
+  font-size: 11px; font-weight: 700; background: var(--off); color: var(--text-3);
+  padding: 1px 7px; border-radius: 100px; transition: background .18s, color .18s;
+}
+.plf-chip.active { background: var(--plf-accent); border-color: var(--plf-accent); color: #fff; }
+.plf-chip.active svg { opacity: 1; }
+.plf-chip.active .plf-count { background: rgba(255,255,255,.25); color: #fff; }
+
+.plf-group-head { display: flex; align-items: center; gap: 14px; margin-top: 36px; margin-bottom: 14px; }
+.plf-group-head:first-child { margin-top: 8px; }
+.plf-group-tag {
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+  font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--plf-accent); background: var(--plf-accent-tint);
+  padding: 5px 13px; border-radius: 100px; white-space: nowrap;
+}
+.plf-group-line { flex: 1; height: 1px; background: var(--border); }
+.plf-group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 16px; }
+
+@media (min-width: 769px) {
+  .plf-bar { top: 150px; }
+}
+@media (max-width: 700px) {
+  .plf-chip { padding: 7px 13px; font-size: 12.5px; }
+  .plf-group-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
+}

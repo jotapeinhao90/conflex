@@ -125,3 +125,111 @@ function handleSubmit(e) {
     document.getElementById('form-ok').style.display = 'block';
   }, 1100);
 }
+
+/* =====================
+   Catalog filter bar (shared by conduit/schedule/hidraulico pages)
+   ===================== */
+const PLF_ICONS = {
+  all:        '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>',
+  curvas:     '<path d="M4 20V10a6 6 0 016-6h10"/>',
+  coplas:     '<path d="M10 13a5 5 0 007.07 0l1.41-1.41a5 5 0 00-7.07-7.07L10 6"/><path d="M14 11a5 5 0 00-7.07 0l-1.41 1.41a5 5 0 007.07 7.07L14 18"/>',
+  terminales: '<path d="M5 21V4a1 1 0 011-1h13l-4 5 4 5H6"/>',
+  reducciones:'<path d="M4 4h16l-6 8v8h-4v-8z"/>',
+  tapagorros: '<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/>',
+  adaptadores:'<path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/>',
+  espigas:    '<path d="M12 2l4 13H8z"/><path d="M8 15h8l-1 6H9z"/>',
+  layflat:    '<path d="M4 9h16"/><path d="M4 15h16"/>',
+  salidas:    '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/>',
+  camaras:    '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12a8 3 0 0016 0V6"/>'
+};
+
+function initCatalogFilters(opts) {
+  const { lineSlug, accent, accentTint, groups, gridEl, filtersEl } = opts;
+  const allIds = LINES[lineSlug].products;
+  const resolved = groups
+    .map(g => ({ ...g, ids: allIds.filter(g.match) }))
+    .filter(g => g.ids.length);
+
+  if (accent) document.documentElement.style.setProperty('--plf-accent', accent);
+  if (accentTint) document.documentElement.style.setProperty('--plf-accent-tint', accentTint);
+
+  function cardHtml(id) {
+    const p = PRODUCTS[id];
+    return `
+      <a href="producto.html?id=${id}" class="pl-card fade-3d">
+        <div class="pl-photo">
+          <img src="img/products/${id}.png" alt="${p.name}" loading="lazy"
+            onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
+          <div class="pl-photo-ph">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <span>Foto próximamente</span>
+          </div>
+        </div>
+        <div class="pl-body">
+          <div class="pl-name">${p.name}</div>
+          <div class="pl-desc">${p.desc.split('.')[0]}.</div>
+          <div class="pl-tags">${p.specs.map(s=>`<span class="pl-tag">${s}</span>`).join('')}</div>
+          <div class="pl-cta">
+            <span>Ver medidas y cotizar</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  function renderGrid(activeId) {
+    const visible = activeId === 'all' ? resolved : resolved.filter(g => g.id === activeId);
+    gridEl.innerHTML = visible.map(g => `
+      <div id="${g.id}" class="plf-group-head">
+        <span class="plf-group-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[g.id] || PLF_ICONS.curvas}</svg>
+          ${g.label}
+        </span>
+        <div class="plf-group-line"></div>
+      </div>
+      <div class="plf-group-grid">${g.ids.map(cardHtml).join('')}</div>
+    `).join('');
+    gridEl.querySelectorAll('.fade-3d').forEach(el => {
+      const io = new IntersectionObserver(e => { if (e[0].isIntersecting) { el.classList.add('in'); io.unobserve(el); } }, { threshold: .1 });
+      io.observe(el);
+    });
+  }
+
+  function chipHtml(id, label, count, active) {
+    return `
+      <button class="plf-chip${active ? ' active' : ''}" data-id="${id}" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[id] || PLF_ICONS.curvas}</svg>
+        <span>${label}</span>
+        <span class="plf-count">${count}</span>
+      </button>`;
+  }
+
+  function setActiveChip(id) {
+    filtersEl.querySelectorAll('.plf-chip').forEach(b => b.classList.toggle('active', b.dataset.id === id));
+  }
+
+  filtersEl.innerHTML = chipHtml('all', 'Todos', allIds.length, true) +
+    resolved.map(g => chipHtml(g.id, g.label, g.ids.length, false)).join('');
+
+  filtersEl.addEventListener('click', e => {
+    const btn = e.target.closest('.plf-chip');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    setActiveChip(id);
+    renderGrid(id);
+    if (id !== 'all') history.replaceState(null, '', '#' + id);
+    else history.replaceState(null, '', location.pathname);
+  });
+
+  const hash = location.hash.replace('#', '');
+  if (resolved.find(g => g.id === hash)) {
+    setActiveChip(hash);
+    renderGrid(hash);
+    setTimeout(() => {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  } else {
+    renderGrid('all');
+  }
+}

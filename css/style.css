@@ -1108,39 +1108,47 @@ h2.center { text-align: center; }
 }
 
 /* ===========================
-   CATALOG FILTER BAR (conduit / schedule / hidraulico)
+   CATALOG FILTER SIDEBAR (conduit / schedule / hidraulico)
+   estilo sidebar de checkboxes, tipo Sodimac/Falabella
    =========================== */
 :root { --plf-accent: var(--orange); --plf-accent-tint: #fef1ea; }
-.plf-bar {
-  position: sticky; top: 96px; z-index: 30;
-  background: rgba(255,255,255,.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+.pf-wrap {
+  display: grid; grid-template-columns: 230px 1fr; gap: 28px;
+  max-width: 1160px; margin: 0 auto; padding: 0 32px; align-items: start;
 }
-.plf-hint { font-size: 12.5px; color: var(--text-3); padding: 10px 0 0; }
-.plf-scroll {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 0 12px; overflow-x: auto; scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
+.pf-sidebar {
+  position: sticky; top: 110px;
+  background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-lg);
+  padding: 18px 18px 14px;
 }
-.plf-scroll::-webkit-scrollbar { display: none; }
-.plf-chip {
-  display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
-  padding: 8px 16px; border-radius: 100px; border: 1.5px solid var(--border);
-  background: #fff; color: var(--text-2); font-size: 13.5px; font-weight: 600;
-  font-family: 'Inter', sans-serif; cursor: pointer; white-space: nowrap;
-  transition: background .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease);
+.pf-sidebar-head { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.pf-sidebar-hint { font-size: 11.5px; color: var(--text-3); margin-bottom: 12px; line-height: 1.5; }
+.pf-check {
+  display: flex; align-items: center; gap: 9px; padding: 7px 6px;
+  border-radius: 8px; cursor: pointer; transition: background .15s;
+  -webkit-user-select: none; user-select: none;
 }
-.plf-chip svg { opacity: .6; flex-shrink: 0; transition: opacity .18s; }
-.plf-chip:hover { border-color: var(--plf-accent); color: var(--text); }
-.plf-chip:hover svg { opacity: 1; }
-.plf-chip .plf-count {
-  font-size: 11px; font-weight: 700; background: var(--off); color: var(--text-3);
-  padding: 1px 7px; border-radius: 100px; transition: background .18s, color .18s;
+.pf-check:hover { background: var(--off); }
+.pf-check input[type="checkbox"] {
+  width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; accent-color: var(--plf-accent);
 }
-.plf-chip.active { background: var(--plf-accent); border-color: var(--plf-accent); color: #fff; }
-.plf-chip.active svg { opacity: 1; }
-.plf-chip.active .plf-count { background: rgba(255,255,255,.25); color: #fff; }
+.pf-check svg { width: 15px; height: 15px; opacity: .55; flex-shrink: 0; }
+.pf-check .pf-label { flex: 1; font-size: 13px; color: var(--text-2); font-weight: 500; }
+.pf-check input:checked + svg { opacity: .9; }
+.pf-check input:checked ~ .pf-label { color: var(--text); font-weight: 600; }
+.pf-check .pf-count {
+  font-size: 10.5px; font-weight: 700; color: var(--text-3); background: var(--off);
+  padding: 1px 7px; border-radius: 100px;
+}
+.pf-divider { height: 1px; background: var(--border); margin: 8px 0 10px; }
+.pf-clear {
+  font-size: 12px; color: var(--plf-accent); cursor: pointer; background: none; border: none;
+  padding: 4px 6px; font-family: 'Inter', sans-serif; font-weight: 600; text-decoration: underline;
+  display: none;
+}
+.pf-clear.show { display: inline-block; }
 
+.pf-main { min-width: 0; }
 .plf-group-head { display: flex; align-items: center; gap: 14px; margin-top: 24px; margin-bottom: 12px; }
 .plf-group-head:first-child { margin-top: 0; }
 .plf-group-tag {
@@ -1150,12 +1158,22 @@ h2.center { text-align: center; }
   padding: 5px 13px; border-radius: 100px; white-space: nowrap;
 }
 .plf-group-line { flex: 1; height: 1px; background: var(--border); }
-.plf-group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 16px; }
+.plf-group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 16px; }
 
-@media (min-width: 769px) {
-  .plf-bar { top: 150px; }
-}
-@media (max-width: 700px) {
-  .plf-chip { padding: 7px 13px; font-size: 12.5px; }
+@media (max-width: 900px) {
+  .pf-wrap { grid-template-columns: 1fr; padding: 0 16px; gap: 16px; }
+  .pf-sidebar {
+    position: static; padding: 14px 16px;
+  }
+  .pf-sidebar-body { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pf-sidebar-hint { width: 100%; }
+  .pf-check { flex: 0 0 auto; padding: 6px 12px; border: 1.5px solid var(--border); border-radius: 100px; }
+  .pf-check input[type="checkbox"] { display: none; }
+  .pf-check:has(input:checked) { background: var(--plf-accent); border-color: var(--plf-accent); }
+  .pf-check:has(input:checked) .pf-label { color: #fff; }
+  .pf-check:has(input:checked) svg { opacity: 1; filter: brightness(0) invert(1); }
+  .pf-check:has(input:checked) .pf-count { background: rgba(255,255,255,.25); color: #fff; }
+  .pf-divider { display: none; }
+  .pf-clear { width: 100%; text-align: left; }
   .plf-group-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
 }

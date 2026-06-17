@@ -197,20 +197,22 @@ function initCatalogFilters(opts) {
     });
   }
 
-  function chipHtml(id, label, count) {
+  function checkHtml(g) {
     return `
-      <button class="plf-chip" data-id="${id}" type="button">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[id] || PLF_ICONS.curvas}</svg>
-        <span>${label}</span>
-        <span class="plf-count">${count}</span>
-      </button>`;
+      <label class="pf-check">
+        <input type="checkbox" data-id="${g.id}" />
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[g.id] || PLF_ICONS.curvas}</svg>
+        <span class="pf-label">${g.label}</span>
+        <span class="pf-count">${g.ids.length}</span>
+      </label>`;
   }
 
-  function renderChips() {
-    filtersEl.querySelectorAll('.plf-chip').forEach(b => {
-      const active = b.dataset.id === 'all' ? selected.size === 0 : selected.has(b.dataset.id);
-      b.classList.toggle('active', active);
+  function renderChecks() {
+    filtersEl.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.checked = selected.has(cb.dataset.id);
     });
+    const clearBtn = filtersEl.querySelector('.pf-clear');
+    if (clearBtn) clearBtn.classList.toggle('show', selected.size > 0);
   }
 
   function syncHash() {
@@ -218,17 +220,26 @@ function initCatalogFilters(opts) {
     else history.replaceState(null, '', '#' + Array.from(selected).join(','));
   }
 
-  filtersEl.innerHTML = chipHtml('all', 'Todos', allIds.length) +
-    resolved.map(g => chipHtml(g.id, g.label, g.ids.length)).join('');
+  filtersEl.innerHTML = `
+    <div class="pf-sidebar-head">Filtrar por categoría</div>
+    <p class="pf-sidebar-hint">Selecciona una o más opciones</p>
+    <div class="pf-sidebar-body">${resolved.map(checkHtml).join('')}</div>
+    <div class="pf-divider"></div>
+    <button class="pf-clear" type="button">Limpiar filtros</button>`;
 
-  filtersEl.addEventListener('click', e => {
-    const btn = e.target.closest('.plf-chip');
-    if (!btn) return;
-    const id = btn.dataset.id;
-    if (id === 'all') selected.clear();
-    else if (selected.has(id)) selected.delete(id);
-    else selected.add(id);
-    renderChips();
+  filtersEl.addEventListener('change', e => {
+    const cb = e.target.closest('input[type="checkbox"]');
+    if (!cb) return;
+    const id = cb.dataset.id;
+    if (cb.checked) selected.add(id); else selected.delete(id);
+    renderChecks();
+    renderGrid();
+    syncHash();
+  });
+
+  filtersEl.querySelector('.pf-clear').addEventListener('click', () => {
+    selected.clear();
+    renderChecks();
     renderGrid();
     syncHash();
   });
@@ -237,14 +248,14 @@ function initCatalogFilters(opts) {
   const validHashIds = hashIds.filter(h => resolved.find(g => g.id === h));
   if (validHashIds.length) {
     validHashIds.forEach(id => selected.add(id));
-    renderChips();
+    renderChecks();
     renderGrid();
     setTimeout(() => {
       const el = document.getElementById(validHashIds[0]);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 80);
   } else {
-    renderChips();
+    renderChecks();
     renderGrid();
   }
 }

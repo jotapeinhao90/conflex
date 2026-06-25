@@ -657,7 +657,8 @@ h2.center { text-align: center; }
    =========================== */
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-visual { display: none; }
+  .hero-visual { min-height: 280px; margin-top: 32px; }
+  .hero-img-wrap { min-height: 280px; }
   .logos-grid { grid-template-columns: repeat(3, 1fr); }
   .video-wrap { grid-template-columns: 1fr; gap: 36px; }
   .certs-wrap { grid-template-columns: 1fr; gap: 40px; }
@@ -672,9 +673,12 @@ h2.center { text-align: center; }
   .two-col { grid-template-columns: 1fr; gap: 48px; }
   .nos-cards { display: none; }
   .contacto-wrap { grid-template-columns: 1fr; gap: 40px; }
-  .stats-row { grid-template-columns: 1fr 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; gap: 0; }
   .stat-div { display: none; }
-  .stat { border-bottom: 1px solid var(--border); }
+  .stat { border-bottom: 1px solid var(--border); padding: 16px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 96px; }
+  .stat strong { font-size: 26px; line-height: 1.1; }
+  .count-sfx { font-size: 15px; }
+  .stat p { font-size: 11.5px; margin-top: 6px; }
   .nav-bottom { display: none; }
   .nav-search { display: none; }
   .nav-cta { display: none; }

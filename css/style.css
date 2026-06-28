@@ -610,11 +610,14 @@ h2.center { text-align: center; }
 .marquee-track {
   display: flex; align-items: center; gap: 16px; width: max-content;
   animation: marquee-left var(--dur, 14s) linear infinite;
-  transform: translateZ(0);
+  animation-play-state: paused;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0);
 }
+.marquee-wrap.in .marquee-track { animation-play-state: running; }
 @keyframes marquee-left {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(-50%,0,0); }
+  from { -webkit-transform: translate3d(0,0,0);    transform: translate3d(0,0,0); }
+  to   { -webkit-transform: translate3d(-50%,0,0); transform: translate3d(-50%,0,0); }
 }
 .logo-item {
   display: flex; align-items: center; justify-content: center;
@@ -623,7 +626,6 @@ h2.center { text-align: center; }
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 14px;
-  box-shadow: 0 4px 10px rgba(20,20,16,.04);
 }
 .logo-item img {
   max-height: 56px; max-width: 130px; width: auto; height: auto;

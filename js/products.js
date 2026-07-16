@@ -6,7 +6,7 @@ const PRODUCTS = {
   /* ---- LÍNEA CONDUIT ---- */
   'conduit-curvas-90': {
     name: 'Curvas 90°', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Permite cambios de dirección a 90° en cañerías conduit. Disponible en tipo Cementar (adhesivo) y Anger (junta elástica, sin adhesivo). Clases I–IV según resistencia mecánica.',
+    desc: 'Permite cambios de ángulo a 90° en cañerías conduit. Disponible en tipo Cementar (adhesivo) y Anger (junta elástica, sin adhesivo). Clases I–IV según resistencia mecánica.',
     specs: ['Norma IEC 61386','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
@@ -16,7 +16,7 @@ const PRODUCTS = {
   },
   'conduit-curvas-45': {
     name: 'Curvas 45°', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
-    desc: 'Cambio de dirección suave a 45° para trayectos que requieren una desviación gradual. Menor tensión sobre el cable que una curva de 90°. Tipo Cementar (adhesivo) o Anger (junta elástica).',
+    desc: 'Cambio de ángulo suave a 45° para trayectos que requieren una desviación gradual. Menor tensión sobre el cable que una curva de 90°. Tipo Cementar (adhesivo) o Anger (junta elástica).',
     specs: ['Norma IEC 61386','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
@@ -123,13 +123,6 @@ const PRODUCTS = {
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
   },
-  'sch4080-terminal-hi': {
-    name: 'Terminal HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Terminal HI (hilo interior): rosca hembra para recibir accesorios o tuberías con rosca macho. Schedule 40 y 80, de 1/2" a 6".',
-    specs: ['Rosca interior (HI)','Schedule 40 y 80','1/2" – 6"'],
-    hasType:true, hasClass:false, typeLabel:'Schedule',
-    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
-  },
   'sch4080-copla-cem': {
     name: 'Copla Cementar', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
     desc: 'Une dos tramos de cañería con adhesivo PVC. Unión resistente y hermética. Schedule 40 y 80, de 1/2" a 8".',
@@ -137,14 +130,6 @@ const PRODUCTS = {
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"']}
   },
-  'sch4080-copla-hihi': {
-    name: 'Copla HI-HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
-    desc: 'Unión roscada hembra-hembra para mayor seguridad mecánica. Schedule 40 y 80, de 1/2" a 6".',
-    specs: ['Unión roscada HI-HI','Schedule 40 y 80','1/2" – 6"'],
-    hasType:true, hasClass:false, typeLabel:'Schedule',
-    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
-  },
-
   /* ---- SCHEDULE GRIS UV ---- */
   'grisuv-curvas-90': {
     name: 'Curvas 90° Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
@@ -243,7 +228,7 @@ const PRODUCTS = {
   /* ---- FITTING HIDRÁULICO ---- */
   'hidraul-curvas-90': {
     name: 'Curvas 90°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
-    desc: 'Curva 90° hidráulica PVC. Cambio de dirección en redes de agua potable y distribución de fluidos a presión. Disponible en tipo Anger (junta elástica) y Cementar (adhesivo). PN 10.',
+    desc: 'Curva 90° hidráulica PVC. Cambio de ángulo en redes de agua potable y distribución de fluidos a presión. Disponible en tipo Anger (junta elástica) y Cementar (adhesivo). PN 10.',
     specs: ['Material Hidráulico PVC','Tipo Anger y Cementar','PN 10','32 – 400 mm'],
     hasType:true, hasClass:false, typeLabel:'Tipo de unión',
     types:{
@@ -253,7 +238,7 @@ const PRODUCTS = {
   },
   'hidraul-curvas-45': {
     name: 'Curvas 45°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
-    desc: 'Desviación suave a 45° para redes hidráulicas. Menor pérdida de carga que una curva de 90°. Ideal para instalaciones que requieren cambios de dirección gradual.',
+    desc: 'Desviación suave a 45° para redes hidráulicas. Menor pérdida de carga que una curva de 90°. Ideal para instalaciones que requieren cambios de ángulo gradual.',
     specs: ['Material Hidráulico PVC','Tipo Anger y Cementar','PN 10','32 – 400 mm'],
     hasType:true, hasClass:false, typeLabel:'Tipo de unión',
     types:{
@@ -298,20 +283,6 @@ const PRODUCTS = {
     specs: ['Unión por adhesivo','PN 10','25×20 – 400×355 mm'],
     hasType:false, hasClass:false,
     sizes:['25×20mm','32×20mm','32×25mm','40×25mm','40×32mm','50×32mm','50×40mm','63×40mm','63×50mm','75×40mm','75×50mm','75×63mm','90×63mm','90×75mm','110×63mm','110×75mm','110×90mm','125×90mm','125×110mm','140×90mm','140×110mm','140×125mm','160×110mm','160×125mm','160×140mm','180×160mm','200×140mm','200×160mm','200×180mm','250×160mm','250×200mm','315×200mm','315×250mm','355×250mm','355×315mm','400×315mm','400×355mm']
-  },
-  'hidraul-tapag-anger': {
-    name: 'Tapagorros Anger', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
-    desc: 'Tapa ciega con junta elástica Anger para sellar extremos de tubería hidráulica. Permite apertura y cierre sin dañar la tubería. PN 10.',
-    specs: ['Junta elástica Anger','Desmontable','PN 10','63 – 400 mm'],
-    hasType:false, hasClass:false,
-    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
-  },
-  'hidraul-tapag-cem': {
-    name: 'Tapagorros Cementar', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
-    desc: 'Tapa ciega adhesiva para sellar permanentemente extremos de tubería hidráulica. Para instalaciones sin retorno o terminaciones definitivas. PN 10.',
-    specs: ['Unión por adhesivo','Cierre permanente','PN 10','63 – 400 mm'],
-    hasType:false, hasClass:false,
-    sizes:['63mm PN10','75mm PN10','90mm PN10','110mm PN10','125mm PN10','140mm PN10','160mm PN10','180mm PN10','200mm PN10','250mm PN10','315mm PN10','355mm PN10','400mm PN10']
   },
   'hidraul-adaptador-gibault': {
     name: 'Adaptador Gibault', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',

@@ -1145,47 +1145,58 @@ h2.center { text-align: center; }
 }
 
 /* ===========================
-   CATALOG FILTER SIDEBAR (conduit / schedule / hidraulico)
-   estilo sidebar de checkboxes, tipo Sodimac/Falabella
+   CATALOG FILTER TABS (conduit / schedule / hidraulico)
+   barra de pestañas fija + franja de contexto (línea › categoría)
    =========================== */
 :root { --plf-accent: var(--orange); --plf-accent-tint: #fef1ea; }
 .pf-wrap {
-  display: grid; grid-template-columns: 230px 1fr; gap: 28px;
-  max-width: 1160px; margin: 0 auto; padding: 0 32px; align-items: start;
+  max-width: 1160px; margin: 0 auto; padding: 0 32px;
 }
-.pf-sidebar {
-  position: sticky; top: 110px;
-  background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-lg);
-  padding: 18px 18px 14px;
+.pf-main { min-width: 0; }
+
+.plf-tabbar {
+  position: sticky; top: 157px; z-index: 20;
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; border: 1.5px solid var(--border); border-radius: 100px;
+  padding: 6px; margin-bottom: 28px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
 }
-.pf-sidebar-head { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-.pf-sidebar-hint { font-size: 11.5px; color: var(--text-3); margin-bottom: 12px; line-height: 1.5; }
-.pf-check {
-  display: flex; align-items: center; gap: 9px; padding: 7px 6px;
-  border-radius: 8px; cursor: pointer; transition: background .15s;
-  -webkit-user-select: none; user-select: none;
+.plf-tabbar::-webkit-scrollbar { display: none; }
+.plf-tab {
+  display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-2);
+  background: none; border: none; border-radius: 100px; cursor: pointer;
+  padding: 9px 16px; white-space: nowrap; transition: background .15s, color .15s;
 }
-.pf-check:hover { background: var(--off); }
-.pf-check input[type="checkbox"] {
-  width: 16px; height: 16px; flex-shrink: 0; cursor: pointer; accent-color: var(--plf-accent);
-}
-.pf-check svg { width: 15px; height: 15px; opacity: .55; flex-shrink: 0; }
-.pf-check .pf-label { flex: 1; font-size: 13px; color: var(--text-2); font-weight: 500; }
-.pf-check input:checked + svg { opacity: .9; }
-.pf-check input:checked ~ .pf-label { color: var(--text); font-weight: 600; }
-.pf-check .pf-count {
+.plf-tab:hover { background: var(--off); }
+.plf-tab svg { width: 15px; height: 15px; opacity: .6; flex-shrink: 0; }
+.plf-tab .plf-tab-count {
   font-size: 10.5px; font-weight: 700; color: var(--text-3); background: var(--off);
   padding: 1px 7px; border-radius: 100px;
 }
-.pf-divider { height: 1px; background: var(--border); margin: 8px 0 10px; }
-.pf-clear {
-  font-size: 12px; color: var(--plf-accent); cursor: pointer; background: none; border: none;
-  padding: 4px 6px; font-family: 'Inter', sans-serif; font-weight: 600; text-decoration: underline;
-  display: none;
-}
-.pf-clear.show { display: inline-block; }
+.plf-tab.active { background: var(--plf-accent); color: #fff; }
+.plf-tab.active svg { opacity: 1; filter: brightness(0) invert(1); }
+.plf-tab.active .plf-tab-count { background: rgba(255,255,255,.25); color: #fff; }
 
-.pf-main { min-width: 0; }
+.plf-context {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--plf-accent-tint); border-radius: var(--r-lg);
+  padding: 14px 20px; margin-bottom: 24px;
+}
+.plf-context-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%; background: #fff; color: var(--plf-accent);
+  flex-shrink: 0;
+}
+.plf-context-icon svg { width: 16px; height: 16px; }
+.plf-context-text { font-size: 14px; color: var(--text-2); }
+.plf-context-text strong { color: var(--navy); font-weight: 700; }
+.plf-context-sep { color: var(--plf-accent); font-weight: 700; }
+.plf-context-count {
+  margin-left: auto; font-size: 12px; font-weight: 700; color: var(--plf-accent);
+  background: #fff; padding: 4px 12px; border-radius: 100px; flex-shrink: 0;
+}
+
 .plf-group-head { display: flex; align-items: center; gap: 14px; margin-top: 24px; margin-bottom: 12px; }
 .plf-group-head:first-child { margin-top: 0; }
 .plf-group-tag {
@@ -1198,19 +1209,12 @@ h2.center { text-align: center; }
 .plf-group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 16px; }
 
 @media (max-width: 900px) {
-  .pf-wrap { grid-template-columns: 1fr; padding: 0 16px; gap: 16px; }
-  .pf-sidebar {
-    position: static; padding: 14px 16px;
-  }
-  .pf-sidebar-body { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pf-sidebar-hint { width: 100%; }
-  .pf-check { flex: 0 0 auto; padding: 6px 12px; border: 1.5px solid var(--border); border-radius: 100px; }
-  .pf-check input[type="checkbox"] { display: none; }
-  .pf-check:has(input:checked) { background: var(--plf-accent); border-color: var(--plf-accent); }
-  .pf-check:has(input:checked) .pf-label { color: #fff; }
-  .pf-check:has(input:checked) svg { opacity: 1; filter: brightness(0) invert(1); }
-  .pf-check:has(input:checked) .pf-count { background: rgba(255,255,255,.25); color: #fff; }
-  .pf-divider { display: none; }
-  .pf-clear { width: 100%; text-align: left; }
+  .pf-wrap { padding: 0 16px; }
+  .plf-tabbar { border-radius: var(--r-lg); }
+  .plf-context { padding: 12px 16px; }
+  .plf-context-count { margin-left: 0; }
   .plf-group-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
+}
+@media (max-width: 768px) {
+  .plf-tabbar { top: 97px; }
 }

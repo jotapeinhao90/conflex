@@ -144,8 +144,9 @@ const PLF_ICONS = {
 };
 
 function initCatalogFilters(opts) {
-  const { lineSlug, accent, accentTint, groups, gridEl, filtersEl } = opts;
+  const { lineSlug, lineTitle, accent, accentTint, groups, gridEl, filtersEl } = opts;
   const allIds = LINES[lineSlug].products;
+  const title  = lineTitle || (LINES[lineSlug] || {}).title || '';
   const resolved = groups
     .map(g => ({ ...g, ids: allIds.filter(g.match) }))
     .filter(g => g.ids.length);
@@ -153,7 +154,7 @@ function initCatalogFilters(opts) {
   if (accent) document.documentElement.style.setProperty('--plf-accent', accent);
   if (accentTint) document.documentElement.style.setProperty('--plf-accent-tint', accentTint);
 
-  const selected = new Set(); // empty Set = "Todos" (mostrar todo)
+  let selected = 'all'; // 'all' = ver todas las categorías agrupadas
 
   function cardHtml(id) {
     const p = PRODUCTS[id];
@@ -179,9 +180,8 @@ function initCatalogFilters(opts) {
       </a>`;
   }
 
-  function renderGrid() {
-    const visible = selected.size === 0 ? resolved : resolved.filter(g => selected.has(g.id));
-    gridEl.innerHTML = visible.map(g => `
+  function groupBlockHtml(g) {
+    return `
       <div id="${g.id}" class="plf-group-head">
         <span class="plf-group-tag">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[g.id] || PLF_ICONS.curvas}</svg>
@@ -189,73 +189,87 @@ function initCatalogFilters(opts) {
         </span>
         <div class="plf-group-line"></div>
       </div>
-      <div class="plf-group-grid">${g.ids.map(cardHtml).join('')}</div>
-    `).join('');
+      <div class="plf-group-grid">${g.ids.map(cardHtml).join('')}</div>`;
+  }
+
+  function contextHtml(g) {
+    return `
+      <div class="plf-context">
+        <span class="plf-context-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[g.id] || PLF_ICONS.curvas}</svg>
+        </span>
+        <span class="plf-context-text"><strong>${title}</strong> <span class="plf-context-sep">›</span> ${g.label}</span>
+        <span class="plf-context-count">${g.ids.length} ${g.ids.length === 1 ? 'producto' : 'productos'}</span>
+      </div>`;
+  }
+
+  function renderGrid() {
+    if (selected === 'all') {
+      gridEl.innerHTML = resolved.map(groupBlockHtml).join('');
+    } else {
+      const g = resolved.find(g => g.id === selected);
+      gridEl.innerHTML = g ? contextHtml(g) + `<div class="plf-group-grid">${g.ids.map(cardHtml).join('')}</div>` : '';
+    }
     gridEl.querySelectorAll('.fade-3d').forEach(el => {
       const io = new IntersectionObserver(e => { if (e[0].isIntersecting) { el.classList.add('in'); io.unobserve(el); } }, { threshold: .1 });
       io.observe(el);
     });
   }
 
-  function checkHtml(g) {
+  function tabHtml(g) {
     return `
-      <label class="pf-check">
-        <input type="checkbox" data-id="${g.id}" />
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[g.id] || PLF_ICONS.curvas}</svg>
-        <span class="pf-label">${g.label}</span>
-        <span class="pf-count">${g.ids.length}</span>
-      </label>`;
+      <button class="plf-tab" type="button" data-id="${g.id}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS[g.id] || PLF_ICONS.curvas}</svg>
+        <span>${g.label}</span>
+        <span class="plf-tab-count">${g.ids.length}</span>
+      </button>`;
   }
 
-  function renderChecks() {
-    filtersEl.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-      cb.checked = selected.has(cb.dataset.id);
+  function renderTabs() {
+    filtersEl.querySelectorAll('.plf-tab').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.id === selected);
     });
-    const clearBtn = filtersEl.querySelector('.pf-clear');
-    if (clearBtn) clearBtn.classList.toggle('show', selected.size > 0);
   }
 
   function syncHash() {
-    if (selected.size === 0) history.replaceState(null, '', location.pathname);
-    else history.replaceState(null, '', '#' + Array.from(selected).join(','));
+    if (selected === 'all') history.replaceState(null, '', location.pathname);
+    else history.replaceState(null, '', '#' + selected);
   }
 
+  function scrollToFilters() {
+    const navH = document.querySelector('.nav')?.getBoundingClientRect().height || 0;
+    const rect = filtersEl.getBoundingClientRect();
+    const targetY = window.scrollY + rect.top - navH - 12;
+    window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+  }
+
+  filtersEl.className = 'plf-tabbar';
   filtersEl.innerHTML = `
-    <div class="pf-sidebar-head">Filtrar por categoría</div>
-    <p class="pf-sidebar-hint">Selecciona una o más opciones</p>
-    <div class="pf-sidebar-body">${resolved.map(checkHtml).join('')}</div>
-    <div class="pf-divider"></div>
-    <button class="pf-clear" type="button">Limpiar filtros</button>`;
+    <button class="plf-tab" type="button" data-id="all">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS.all}</svg>
+      <span>Todos</span>
+      <span class="plf-tab-count">${allIds.length}</span>
+    </button>
+    ${resolved.map(tabHtml).join('')}`;
 
-  filtersEl.addEventListener('change', e => {
-    const cb = e.target.closest('input[type="checkbox"]');
-    if (!cb) return;
-    const id = cb.dataset.id;
-    if (cb.checked) selected.add(id); else selected.delete(id);
-    renderChecks();
+  filtersEl.addEventListener('click', e => {
+    const btn = e.target.closest('.plf-tab');
+    if (!btn) return;
+    selected = btn.dataset.id;
+    renderTabs();
     renderGrid();
     syncHash();
+    scrollToFilters();
   });
 
-  filtersEl.querySelector('.pf-clear').addEventListener('click', () => {
-    selected.clear();
-    renderChecks();
+  const hashId = location.hash.replace('#', '');
+  if (hashId && resolved.find(g => g.id === hashId)) {
+    selected = hashId;
+    renderTabs();
     renderGrid();
-    syncHash();
-  });
-
-  const hashIds = location.hash.replace('#', '').split(',').filter(Boolean);
-  const validHashIds = hashIds.filter(h => resolved.find(g => g.id === h));
-  if (validHashIds.length) {
-    validHashIds.forEach(id => selected.add(id));
-    renderChecks();
-    renderGrid();
-    setTimeout(() => {
-      const el = document.getElementById(validHashIds[0]);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 80);
+    setTimeout(scrollToFilters, 80);
   } else {
-    renderChecks();
+    renderTabs();
     renderGrid();
   }
 }

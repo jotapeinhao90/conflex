@@ -159,7 +159,7 @@ function initCatalogFilters(opts) {
   if (accent) document.documentElement.style.setProperty('--plf-accent', accent);
   if (accentTint) document.documentElement.style.setProperty('--plf-accent-tint', accentTint);
 
-  let selected = 'all'; // 'all' = ver todas las categorías agrupadas
+  let selected = new Set(); // vacío = ver todas las categorías agrupadas; puede tener 1+ ids
 
   function cardHtml(id) {
     const p = PRODUCTS[id];
@@ -209,11 +209,16 @@ function initCatalogFilters(opts) {
   }
 
   function renderGrid() {
-    if (selected === 'all') {
+    if (selected.size === 0) {
       gridEl.innerHTML = resolved.map(groupBlockHtml).join('');
     } else {
-      const g = resolved.find(g => g.id === selected);
-      gridEl.innerHTML = g ? contextHtml(g) + `<div class="plf-group-grid">${g.ids.map(cardHtml).join('')}</div>` : '';
+      const chosen = resolved.filter(g => selected.has(g.id));
+      if (chosen.length === 1) {
+        const g = chosen[0];
+        gridEl.innerHTML = contextHtml(g) + `<div class="plf-group-grid">${g.ids.map(cardHtml).join('')}</div>`;
+      } else {
+        gridEl.innerHTML = chosen.map(groupBlockHtml).join('');
+      }
     }
     gridEl.querySelectorAll('.fade-3d').forEach(el => {
       const io = new IntersectionObserver(e => { if (e[0].isIntersecting) { el.classList.add('in'); io.unobserve(el); } }, { threshold: .1 });
@@ -232,13 +237,14 @@ function initCatalogFilters(opts) {
 
   function renderTabs() {
     filtersEl.querySelectorAll('.plf-tab').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.id === selected);
+      const id = btn.dataset.id;
+      btn.classList.toggle('active', id === 'all' ? selected.size === 0 : selected.has(id));
     });
   }
 
   function syncHash() {
-    if (selected === 'all') history.replaceState(null, '', location.pathname);
-    else history.replaceState(null, '', '#' + selected);
+    if (selected.size === 0) history.replaceState(null, '', location.pathname);
+    else history.replaceState(null, '', '#' + [...selected].join(','));
   }
 
   function scrollToFilters() {
@@ -262,8 +268,25 @@ function initCatalogFilters(opts) {
       </a>`;
   }
 
+  const currentLine = LINES[lineSlug];
+  const otherTypeLabel = currentLine.type === 'hidraulica' ? 'Eléctrica' : 'Hidráulica';
+  const switchTarget = currentLine.type === 'hidraulica' ? LINES['conduit'] : LINES['hidraulico'];
+
   filtersEl.className = 'pf-side';
   filtersEl.innerHTML = `
+    <div class="plf-current plf-current--${currentLine.type}">
+      <span class="plf-current-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${PLF_TYPE_ICONS[currentLine.type]}</svg>
+      </span>
+      <span class="plf-current-text">
+        <span class="plf-current-label">Estás viendo la línea</span>
+        <span class="plf-current-name">${currentLine.type === 'hidraulica' ? 'Hidráulica' : 'Eléctrica'}</span>
+      </span>
+    </div>
+    <a class="plf-switch" href="${switchTarget.url}">
+      <span>¿Buscas fitting ${otherTypeLabel.toLowerCase()}? Ir a ${otherTypeLabel}</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
     <div class="plf-lineswitch">
       <div class="plf-side-title">Hidráulica</div>
       ${Object.entries(LINES).filter(([,l]) => l.type === 'hidraulica').map(([slug,l]) => lineBtnHtml(slug,l)).join('')}
@@ -271,7 +294,7 @@ function initCatalogFilters(opts) {
       ${Object.entries(LINES).filter(([,l]) => l.type === 'electrica').map(([slug,l]) => lineBtnHtml(slug,l)).join('')}
     </div>
     <div class="plf-tabbar">
-      <div class="plf-side-title">Categorías</div>
+      <div class="plf-side-title">Categorías <span class="plf-side-hint">(elige varias)</span></div>
       <button class="plf-tab" type="button" data-id="all">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS.all}</svg>
         <span>Todos</span>
@@ -283,16 +306,23 @@ function initCatalogFilters(opts) {
   filtersEl.addEventListener('click', e => {
     const btn = e.target.closest('.plf-tab');
     if (!btn) return;
-    selected = btn.dataset.id;
+    const id = btn.dataset.id;
+    if (id === 'all') {
+      selected.clear();
+    } else if (selected.has(id)) {
+      selected.delete(id);
+    } else {
+      selected.add(id);
+    }
     renderTabs();
     renderGrid();
     syncHash();
     scrollToFilters();
   });
 
-  const hashId = location.hash.replace('#', '');
-  if (hashId && resolved.find(g => g.id === hashId)) {
-    selected = hashId;
+  const hashIds = location.hash.replace('#', '').split(',').filter(id => resolved.find(g => g.id === id));
+  if (hashIds.length) {
+    hashIds.forEach(id => selected.add(id));
     renderTabs();
     renderGrid();
     setTimeout(scrollToFilters, 80);

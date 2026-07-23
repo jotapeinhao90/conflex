@@ -307,6 +307,7 @@ function initCatalogFilters(opts) {
     const btn = e.target.closest('.plf-tab');
     if (!btn) return;
     const id = btn.dataset.id;
+    const wasEmpty = selected.size === 0;
     if (id === 'all') {
       selected.clear();
     } else if (selected.has(id)) {
@@ -317,7 +318,9 @@ function initCatalogFilters(opts) {
     renderTabs();
     renderGrid();
     syncHash();
-    scrollToFilters();
+    // Solo hacer scroll al elegir el primer filtro; toggles siguientes en
+    // multi-selección no deben mover la página (se sentía como recarga).
+    if (wasEmpty && selected.size > 0) scrollToFilters();
   });
 
   const hashIds = location.hash.replace('#', '').split(',').filter(id => resolved.find(g => g.id === id));

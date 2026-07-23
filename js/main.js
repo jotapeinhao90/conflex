@@ -143,6 +143,11 @@ const PLF_ICONS = {
   camaras:    '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12a8 3 0 0016 0V6"/>'
 };
 
+const PLF_TYPE_ICONS = {
+  hidraulica: '<path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/>',
+  electrica:  '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>'
+};
+
 function initCatalogFilters(opts) {
   const { lineSlug, lineTitle, accent, accentTint, groups, gridEl, filtersEl } = opts;
   const allIds = LINES[lineSlug].products;
@@ -243,14 +248,37 @@ function initCatalogFilters(opts) {
     window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
   }
 
-  filtersEl.className = 'plf-tabbar';
+  function lineBtnHtml(slug, line) {
+    const active = slug === lineSlug;
+    return `
+      <a class="plf-line-btn plf-line-btn--${line.type}${active ? ' active' : ''}" href="${line.url}">
+        <span class="plf-line-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${PLF_TYPE_ICONS[line.type]}</svg>
+        </span>
+        <span class="plf-line-text">
+          <span class="plf-line-name">${line.short}</span>
+          <span class="plf-line-type">${active ? 'Estás aquí' : line.typeLabel}</span>
+        </span>
+      </a>`;
+  }
+
+  filtersEl.className = 'pf-side';
   filtersEl.innerHTML = `
-    <button class="plf-tab" type="button" data-id="all">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS.all}</svg>
-      <span>Todos</span>
-      <span class="plf-tab-count">${allIds.length}</span>
-    </button>
-    ${resolved.map(tabHtml).join('')}`;
+    <div class="plf-lineswitch">
+      <div class="plf-side-title">Hidráulica</div>
+      ${Object.entries(LINES).filter(([,l]) => l.type === 'hidraulica').map(([slug,l]) => lineBtnHtml(slug,l)).join('')}
+      <div class="plf-side-title" style="margin-top:8px">Eléctrica e industrial</div>
+      ${Object.entries(LINES).filter(([,l]) => l.type === 'electrica').map(([slug,l]) => lineBtnHtml(slug,l)).join('')}
+    </div>
+    <div class="plf-tabbar">
+      <div class="plf-side-title">Categorías</div>
+      <button class="plf-tab" type="button" data-id="all">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${PLF_ICONS.all}</svg>
+        <span>Todos</span>
+        <span class="plf-tab-count">${allIds.length}</span>
+      </button>
+      ${resolved.map(tabHtml).join('')}
+    </div>`;
 
   filtersEl.addEventListener('click', e => {
     const btn = e.target.closest('.plf-tab');

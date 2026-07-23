@@ -1151,26 +1151,59 @@ h2.center { text-align: center; }
 :root { --plf-accent: var(--orange); --plf-accent-tint: #fef1ea; }
 .pf-wrap {
   max-width: 1160px; margin: 0 auto; padding: 0 32px;
+  display: grid; grid-template-columns: 248px 1fr; gap: 28px; align-items: start;
 }
 .pf-main { min-width: 0; }
 
-.plf-tabbar {
+.pf-side {
   position: sticky; top: 157px; z-index: 20;
-  display: flex; align-items: center; gap: 8px;
-  background: #fff; border: 1.5px solid var(--border); border-radius: 100px;
-  padding: 6px; margin-bottom: 28px;
-  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  display: flex; flex-direction: column; gap: 18px;
 }
-.plf-tabbar::-webkit-scrollbar { display: none; }
+
+.plf-side-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-3); padding: 2px 10px 8px;
+}
+
+.plf-lineswitch, .plf-tabbar {
+  display: flex; flex-direction: column; gap: 3px;
+  background: #fff; border: 1.5px solid var(--border); border-radius: var(--r-lg);
+  padding: 12px;
+}
+
+.plf-line-btn {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 9px; border-radius: 10px; text-decoration: none;
+  transition: background .15s;
+}
+.plf-line-btn:hover { background: var(--off); }
+.plf-line-btn.active { background: var(--plf-accent-tint); }
+.plf-line-icon {
+  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.plf-line-icon svg { width: 16px; height: 16px; }
+.plf-line-btn--hidraulica .plf-line-icon { background: #e0f2fe; color: #0369a1; }
+.plf-line-btn--electrica .plf-line-icon { background: #fff3e0; color: #e85c1a; }
+.plf-line-text { display: flex; flex-direction: column; min-width: 0; }
+.plf-line-name {
+  font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--navy);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.plf-line-type { font-size: 11px; font-weight: 600; color: var(--text-3); }
+.plf-line-btn.active .plf-line-name { color: var(--plf-accent); }
+.plf-line-btn.active .plf-line-type { color: var(--plf-accent); }
+
 .plf-tab {
-  display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 8px; width: 100%;
   font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--text-2);
-  background: none; border: none; border-radius: 100px; cursor: pointer;
-  padding: 9px 16px; white-space: nowrap; transition: background .15s, color .15s;
+  background: none; border: none; border-radius: 10px; cursor: pointer;
+  padding: 9px 10px; white-space: nowrap; text-align: left; transition: background .15s, color .15s;
 }
 .plf-tab:hover { background: var(--off); }
 .plf-tab svg { width: 15px; height: 15px; opacity: .6; flex-shrink: 0; }
 .plf-tab .plf-tab-count {
+  margin-left: auto;
   font-size: 10.5px; font-weight: 700; color: var(--text-3); background: var(--off);
   padding: 1px 7px; border-radius: 100px;
 }
@@ -1209,12 +1242,21 @@ h2.center { text-align: center; }
 .plf-group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 16px; }
 
 @media (max-width: 900px) {
-  .pf-wrap { padding: 0 16px; }
-  .plf-tabbar { border-radius: var(--r-lg); }
+  .pf-wrap { display: block; padding: 0 16px; }
+  .pf-side {
+    position: sticky; top: 97px; z-index: 20;
+    display: flex; flex-direction: column; gap: 8px;
+    background: var(--bg, #fff); padding-bottom: 10px; margin-bottom: 20px;
+  }
+  .plf-side-title { display: none; }
+  .plf-lineswitch, .plf-tabbar {
+    flex-direction: row; align-items: center; border-radius: 100px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .plf-lineswitch::-webkit-scrollbar, .plf-tabbar::-webkit-scrollbar { display: none; }
+  .plf-line-btn, .plf-tab { flex-shrink: 0; width: auto; }
+  .plf-line-type { display: none; }
   .plf-context { padding: 12px 16px; }
   .plf-context-count { margin-left: 0; }
   .plf-group-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
-}
-@media (max-width: 768px) {
-  .plf-tabbar { top: 97px; }
 }

@@ -325,24 +325,40 @@ const PRODUCTS = {
 const LINES = {
   'conduit': {
     title: 'Fitting Conduit',
+    short: 'Conduit',
+    type: 'electrica',
+    typeLabel: 'Eléctrica · cables',
+    url: 'conduit.html',
     desc: 'Accesorios para instalaciones eléctricas conduit. Tipos Cementar y Anger. Clases I–IV.',
     color: '#e85c1a',
     products: Object.keys(PRODUCTS).filter(k => k.startsWith('conduit-'))
   },
   'schedule-40-80': {
     title: 'Fitting Schedule 40/80',
+    short: 'Schedule 40/80',
+    type: 'electrica',
+    typeLabel: 'Eléctrica · industrial',
+    url: 'schedule-40-80.html',
     desc: 'PVC naranja de alta resistencia. Norma ASTM D-1785. Schedule 40 y 80.',
     color: '#e85c1a',
     products: Object.keys(PRODUCTS).filter(k => k.startsWith('sch4080-'))
   },
   'schedule-gris-uv': {
     title: 'Schedule Gris UV',
+    short: 'Gris UV',
+    type: 'electrica',
+    typeLabel: 'Eléctrica · exteriores',
+    url: 'schedule-gris-uv.html',
     desc: 'PVC gris con protección UV para exteriores e intemperie.',
     color: '#4a7c59',
     products: Object.keys(PRODUCTS).filter(k => k.startsWith('grisuv-'))
   },
   'hidraulico': {
     title: 'Fitting Hidráulico',
+    short: 'Hidráulico',
+    type: 'hidraulica',
+    typeLabel: 'Hidráulica · agua',
+    url: 'hidraulico.html',
     desc: 'Accesorios PVC para redes de agua a presión. Tipo Anger y Cementar. PN 10.',
     color: '#0369a1',
     products: Object.keys(PRODUCTS).filter(k => k.startsWith('hidraul-'))

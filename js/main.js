@@ -166,8 +166,8 @@ function initCatalogFilters(opts) {
     return `
       <a href="producto.html?id=${id}" class="pl-card fade-3d">
         <div class="pl-photo">
-          <img src="img/products/${id}.png" alt="${p.name}" loading="lazy"
-            onerror="if(this.src.endsWith('.png')){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
+          <img src="img/products/${id}.png?v=${IMG_V}" alt="${p.name}" loading="lazy"
+            onerror="if(this.src.indexOf('.png')>-1){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
           <div class="pl-photo-ph">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             <span>Foto próximamente</span>

@@ -181,8 +181,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=16"></script>
-  <script src="js/products.js?v=12"></script>
+  <script src="js/main.js?v=17"></script>
+  <script src="js/products.js?v=13"></script>
   <script src="js/catalog.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -210,7 +210,7 @@
           ${related.map(k => `
             <a href="producto.html?id=${k}" class="pd-related-card">
               <div class="pd-rel-photo">
-                <img src="img/products/${k}.png" onerror="this.src='img/products/${k}.jpg';this.onerror=function(){this.style.display='none'}" alt="${PRODUCTS[k].name}" loading="lazy" />
+                <img src="img/products/${k}.png?v=${IMG_V}" onerror="this.src=this.src.replace('.png','.jpg');this.onerror=function(){this.style.display='none'}" alt="${PRODUCTS[k].name}" loading="lazy" />
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               </div>
               <div class="pd-rel-body">
@@ -282,8 +282,8 @@
         </div>
 
         <div class="pd-photo-wrap">
-          <img id="pd-photo-img" src="img/products/${id}.png"
-            onerror="if(this.src.endsWith('.png')){this.src='img/products/${id}.jpg'}else{this.style.display='none';var ph=this.parentElement.querySelector('.pd-photo-ph');if(ph){ph.style.display='flex';}}"
+          <img id="pd-photo-img" src="img/products/${id}.png?v=${IMG_V}"
+            onerror="if(this.src.indexOf('.png')>-1){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pd-photo-ph');if(ph){ph.style.display='flex';}}"
             alt="${prod.name}" />
           <div class="pd-photo-ph">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>

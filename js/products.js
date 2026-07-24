@@ -163,24 +163,10 @@ const PRODUCTS = {
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"']}
   },
-  'grisuv-terminal-he': {
-    name: 'Terminal HE Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
-    desc: 'Terminal HE con aditivo UV. Rosca exterior para conexión a tableros en instalaciones a la intemperie. Schedule 40 y 80.',
-    specs: ['Rosca exterior + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
-    hasType:true, hasClass:false, typeLabel:'Schedule',
-    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
-  },
   'grisuv-terminal-hect': {
     name: 'Terminal HE C/T Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
     desc: 'Con tuerca de fijación y protección UV. Máxima seguridad mecánica en conexiones exteriores permanentes.',
     specs: ['Tuerca + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
-    hasType:true, hasClass:false, typeLabel:'Schedule',
-    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
-  },
-  'grisuv-terminal-hi': {
-    name: 'Terminal HI Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
-    desc: 'Terminal HI (hilo interior) con protección UV para exteriores. Rosca hembra con durabilidad aumentada para la intemperie.',
-    specs: ['Rosca interior + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
   },

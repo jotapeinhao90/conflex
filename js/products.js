@@ -14,7 +14,7 @@ const PRODUCTS = {
     specs: ['Norma IEC 61386','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
-      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm','25mm','32mm']},
+      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['25mm','32mm','40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm']},
       'Anger':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['63mm','75mm','90mm','110mm','140mm','160mm'],'III':['63mm','75mm','90mm','110mm','140mm','160mm']}
     }
   },
@@ -24,7 +24,7 @@ const PRODUCTS = {
     specs: ['Norma IEC 61386','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
-      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm','25mm','32mm']},
+      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['25mm','32mm','40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm']},
       'Anger':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['63mm','75mm','90mm','110mm','140mm','160mm'],'III':['63mm','75mm','90mm','110mm','140mm','160mm']}
     }
   },
@@ -34,7 +34,7 @@ const PRODUCTS = {
     specs: ['Radio R=600mm','PVC autoextinguible','Tipos Cementar y Anger','Clases I, II, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
-      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm','25mm','32mm']},
+      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['25mm','32mm'],'IV':['16mm','20mm']},
       'Anger':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['63mm','75mm','90mm','110mm','140mm','160mm']}
     }
   },
@@ -58,7 +58,7 @@ const PRODUCTS = {
     specs: ['Norma IEC 61386','Tipos Cementar y Anger','Clases I, II, III, IV','16 – 160 mm'],
     hasType:true, hasClass:true, typeLabel:'Tipo de unión',
     types:{
-      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm','25mm','32mm']},
+      'Cementar':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'III':['25mm','32mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm'],'IV':['16mm','20mm']},
       'Anger':{'I':['75mm','90mm','110mm','140mm','160mm'],'II':['63mm','75mm','90mm','110mm','140mm','160mm']}
     }
   },
@@ -67,14 +67,14 @@ const PRODUCTS = {
     desc: 'Terminal HE (hilo exterior): extremo con rosca macho para conectar a accesorios con rosca hembra, tableros y cajas eléctricas. Clases II y III.',
     specs: ['Rosca exterior (HE)','Clases II y III','110 – 160 mm'],
     hasType:false, hasClass:true,
-    classes:{'II':['140mm','160mm'],'III':['110mm','140mm','160mm']}
+    classes:{'II':['140mm','160mm'],'III':['110mm']}
   },
   'conduit-terminal-hect': {
     name: 'Terminal HE C/T', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
     desc: 'Terminal HE con tuerca de fijación incorporada. Mayor seguridad mecánica en el punto de conexión a tablero. Clases II y III.',
     specs: ['Incluye tuerca de fijación','Clases II y III','110 – 160 mm'],
     hasType:false, hasClass:true,
-    classes:{'II':['140mm','160mm'],'III':['110mm','140mm','160mm']}
+    classes:{'II':['140mm','160mm'],'III':['110mm']}
   },
   'conduit-camaras': {
     name: 'Cámaras de Registro', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
@@ -134,6 +134,20 @@ const PRODUCTS = {
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"']}
   },
+  'sch4080-copla-hihi': {
+    name: 'Copla HI-HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Unión roscada hembra-hembra para cañería Schedule. Empalma dos tramos con rosca interior en ambos extremos. Schedule 40 y 80, de 1/2" a 6".',
+    specs: ['Roscada HI-HI','Schedule 40 y 80','1/2" – 6"'],
+    hasType:true, hasClass:false, typeLabel:'Schedule',
+    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
+  },
+  'sch4080-terminal-hi': {
+    name: 'Terminal HI', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Terminal HI (hilo interior): extremo con rosca hembra para recibir accesorios con rosca macho, válvulas o llaves de paso. Schedule 40 y 80, de 1/2" a 6".',
+    specs: ['Rosca interior (HI)','Schedule 40 y 80','1/2" – 6"'],
+    hasType:true, hasClass:false, typeLabel:'Schedule',
+    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
+  },
   /* ---- SCHEDULE GRIS UV ---- */
   'grisuv-curvas-90': {
     name: 'Curvas 90° Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
@@ -162,6 +176,20 @@ const PRODUCTS = {
     specs: ['Protección UV','PVC gris','Schedule 40 y 80','1/2" – 8"'],
     hasType:true, hasClass:false, typeLabel:'Schedule',
     types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"']}
+  },
+  'grisuv-terminal-he': {
+    name: 'Terminal HE Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
+    desc: 'Terminal HE (hilo exterior) con protección UV para conectar a accesorios con rosca hembra en instalaciones exteriores. Schedule 40 y 80, de 1/2" a 6".',
+    specs: ['Rosca exterior (HE) + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
+    hasType:true, hasClass:false, typeLabel:'Schedule',
+    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
+  },
+  'grisuv-terminal-hi': {
+    name: 'Terminal HI Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
+    desc: 'Terminal HI (hilo interior) con protección UV para recibir accesorios con rosca macho en instalaciones exteriores. Schedule 40 y 80, de 1/2" a 6".',
+    specs: ['Rosca interior (HI) + UV','PVC gris','Schedule 40 y 80','1/2" – 6"'],
+    hasType:true, hasClass:false, typeLabel:'Schedule',
+    types:{'Sch 40':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"'],'Sch 80':['1/2"','3/4"','1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"']}
   },
   'grisuv-terminal-hect': {
     name: 'Terminal HE C/T Gris UV', line: 'Schedule Gris UV', lineSlug: 'schedule-gris-uv', lineUrl: 'schedule-gris-uv.html',
@@ -308,6 +336,16 @@ const PRODUCTS = {
     specs: ['Para manguera layflat','Material Hidráulico','2" – 8"'],
     hasType:false, hasClass:false,
     sizes:['2"','3"','4"','6"','8"']
+  },
+  'hidraul-tapagorro': {
+    name: 'Tapagorros', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Tapón terminal para el cierre hermético de tramos en redes hidráulicas. Disponible en tipo Anger (junta elástica, sin adhesivo) y Cementar (adhesivo). PN 10.',
+    specs: ['Material Hidráulico PVC','Tipo Anger y Cementar','PN 10','63 – 400 mm'],
+    hasType:true, hasClass:false, typeLabel:'Tipo de unión',
+    types:{
+      'Anger':  ['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm'],
+      'Cementar':['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm']
+    }
   }
 };
 

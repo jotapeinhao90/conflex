@@ -20,6 +20,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css?v=20" />
+  <!-- Google tag (GA4) — REEMPLAZAR G-XXXXXXXXXX por el Measurement ID real de la propiedad GA4 de Conflex -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 </head>
 <body>
 
@@ -137,6 +145,8 @@
       <div class="footer-bottom">
         <p>&copy; 2026 Conflex. Todos los derechos reservados.</p>
         <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-3)">
+          <a href="politica-privacidad.html" style="color:var(--text-3);text-decoration:none;opacity:.75">Política de Privacidad</a>
+          <span>·</span>
           <span>También distribuido por</span>
           <a href="https://plastiservi.cl" target="_blank" rel="noopener" style="color:var(--text-3);font-weight:600;text-decoration:none;opacity:.75;transition:opacity .18s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity='.75'">Plastiservi →</a>
         </div>

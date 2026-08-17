@@ -350,8 +350,7 @@ function initCatalogFilters(opts) {
 (function conflexLeads() {
   const WA_NUMBER = '56979440758';
   const WA_DEFAULT_MSG = 'Hola, quiero cotizar productos Conflex (tuberías, fittings PVC).';
-  const LEAD_ENDPOINT = 'https://formsubmit.co/ajax/jpbayas@jpbmarketing.cl';
-  const LEAD_CC = 'p.martinez@plastiservi.cl';
+  const LEAD_ENDPOINT = 'https://conflex-leads.bp-juanpix.workers.dev/api/lead';
 
   function waLink(msg) {
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg || WA_DEFAULT_MSG)}`;
@@ -387,7 +386,7 @@ function initCatalogFilters(opts) {
       <button class="cfx-popup-close" id="cfx-popup-close" type="button" aria-label="Cerrar">${closeIcon}</button>
       <div id="cfx-popup-form-wrap">
         <div class="cfx-popup-head">
-          <span class="cfx-popup-badge">${boltIcon} Respuesta en 24–48h hábiles</span>
+          <span class="cfx-popup-badge">${boltIcon} Respuesta rápida</span>
           <h3>Solicita tu cotización</h3>
           <p>Cuéntanos qué productos necesitas y te contactamos con precio directo de fábrica.</p>
         </div>
@@ -402,10 +401,6 @@ function initCatalogFilters(opts) {
             <div class="cfx-f"><label>Cantidad <span class="req">*</span></label><input type="text" name="cantidad" placeholder="Ej: 200 unidades" required /></div>
           </div>
           <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
-          <input type="hidden" name="_subject" value="Solicitud de cotización — Conflex web" />
-          <input type="hidden" name="_cc" value="${LEAD_CC}" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="pagina" value="" />
           <div class="cfx-trust-mini">
             <div class="cfx-trust-mini-item">${checkIcon} Precio directo de fábrica, sin intermediarios</div>
@@ -419,7 +414,7 @@ function initCatalogFilters(opts) {
       <div class="cfx-popup-ok" id="cfx-popup-ok">
         <div class="cfx-popup-ok-icon">${checkIcon}</div>
         <h3>¡Solicitud enviada!</h3>
-        <p>Gracias, recibimos tu solicitud de cotización.<br>Te contactamos en menos de 24–48 horas hábiles.</p>
+        <p>Gracias, recibimos tu solicitud de cotización.<br>Te contactamos a la brevedad.</p>
       </div>
     </div>`;
   document.body.appendChild(popup);

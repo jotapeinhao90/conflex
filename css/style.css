@@ -1290,3 +1290,134 @@ h2.center { text-align: center; }
   .plf-context-count { margin-left: 0; }
   .plf-group-grid { grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 12px; }
 }
+
+/* ===========================
+   Botones flotantes sitewide (WhatsApp + Cotizar)
+   =========================== */
+.cfx-fab {
+  position: fixed; bottom: 24px; z-index: 118;
+  display: flex; align-items: center; gap: 10px;
+  border: none; border-radius: 100px; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700;
+  padding: 14px 20px; color: #fff;
+  box-shadow: 0 8px 28px rgba(0,0,0,.22);
+  transition: transform .2s, box-shadow .2s;
+  animation: cfx-fab-in .4s var(--ease) forwards;
+  text-decoration: none;
+}
+.cfx-fab:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.28); }
+@keyframes cfx-fab-in { from { opacity: 0; transform: translateY(16px) scale(.9); } to { opacity: 1; transform: none; } }
+.cfx-fab svg { width: 20px; height: 20px; flex-shrink: 0; }
+.cfx-fab-wa { left: 24px; background: #25d366; }
+.cfx-fab-wa-pulse {
+  position: absolute; inset: 0; border-radius: 100px; background: #25d366;
+  animation: cfx-pulse 2.2s ease-out infinite; z-index: -1;
+}
+@keyframes cfx-pulse { 0% { opacity: .55; transform: scale(1); } 100% { opacity: 0; transform: scale(1.5); } }
+.cfx-fab-wa { position: fixed; }
+.cfx-fab-quote { right: 24px; background: var(--navy); }
+.cfx-fab-quote:hover { background: var(--orange); }
+.cfx-fab-label-full { display: inline; }
+.cfx-fab-label-short { display: none; }
+@media (max-width: 640px) {
+  .cfx-fab { padding: 13px 16px; font-size: 0; gap: 0; }
+  .cfx-fab svg { width: 22px; height: 22px; }
+  .cfx-fab-label-full, .cfx-fab-label-short { display: none; }
+  .cfx-fab-wa, .cfx-fab-quote { bottom: 16px; }
+  .cfx-fab-wa { left: 16px; }
+  .cfx-fab-quote { right: 16px; }
+}
+
+/* Popup de captura de cotización */
+.cfx-popup-overlay {
+  position: fixed; inset: 0; background: rgba(13,31,60,.55);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.cfx-popup-overlay.open { opacity: 1; pointer-events: all; }
+.cfx-popup {
+  background: #fff; border-radius: var(--r-lg); width: 100%; max-width: 460px;
+  max-height: 92vh; overflow-y: auto; position: relative;
+  box-shadow: var(--sh-lg);
+  transform: scale(.92) translateY(10px); transition: transform .35s var(--ease);
+}
+.cfx-popup-overlay.open .cfx-popup { transform: none; }
+.cfx-popup-close {
+  position: absolute; top: 14px; right: 14px; width: 32px; height: 32px;
+  border-radius: 50%; background: var(--off); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
+  transition: background .2s;
+}
+.cfx-popup-close:hover { background: var(--border); }
+.cfx-popup-head {
+  background: var(--navy); color: #fff; padding: 26px 28px 20px; border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.cfx-popup-badge {
+  display: inline-flex; align-items: center; gap: 6px; background: rgba(232,92,26,.18);
+  color: #ff9a5c; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 100px; margin-bottom: 12px;
+}
+.cfx-popup-badge svg { width: 12px; height: 12px; }
+.cfx-popup-head h3 { font-size: 21px; margin-bottom: 6px; }
+.cfx-popup-head p { font-size: 13px; color: rgba(255,255,255,.72); line-height: 1.5; }
+.cfx-popup-body { padding: 22px 28px 26px; display: flex; flex-direction: column; gap: 14px; }
+.cfx-popup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cfx-f { display: flex; flex-direction: column; gap: 6px; }
+.cfx-f label { font-size: 12px; font-weight: 600; color: var(--text-2); }
+.cfx-f label .req { color: var(--orange); }
+.cfx-f input, .cfx-f textarea {
+  border: 1.5px solid var(--border); border-radius: var(--r); padding: 11px 13px;
+  font-size: 13.5px; font-family: 'Inter', sans-serif; color: var(--text); outline: none;
+  transition: border-color .18s; width: 100%;
+}
+.cfx-f input:focus, .cfx-f textarea:focus { border-color: var(--orange); }
+.cfx-trust-mini { display: flex; flex-direction: column; gap: 7px; padding: 12px 14px; background: var(--off); border-radius: var(--r); }
+.cfx-trust-mini-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); }
+.cfx-trust-mini-item svg { width: 14px; height: 14px; color: var(--orange); flex-shrink: 0; }
+.cfx-popup-submit {
+  width: 100%; padding: 14px; background: var(--orange); color: #fff; border: none;
+  border-radius: var(--r); font-size: 14.5px; font-weight: 700; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: background .18s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.cfx-popup-submit svg { width: 16px; height: 16px; flex-shrink: 0; }
+.cfx-popup-submit:hover { background: var(--orange-2); }
+.cfx-popup-submit:disabled { background: var(--text-3); cursor: not-allowed; }
+.cfx-popup-error { font-size: 12px; color: #cc0000; display: none; }
+.cfx-popup-error.show { display: block; }
+.cfx-popup-ok { padding: 44px 28px 40px; text-align: center; display: none; }
+.cfx-popup-ok.show { display: block; }
+.cfx-popup-ok-icon {
+  width: 56px; height: 56px; border-radius: 50%; background: #e6f7ec; color: #1a9145;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
+}
+.cfx-popup-ok-icon svg { width: 26px; height: 26px; }
+.cfx-popup-ok h3 { font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+.cfx-popup-ok p { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+@media (max-width: 480px) {
+  .cfx-popup-row { grid-template-columns: 1fr; }
+  .cfx-popup-head { padding: 22px 20px 18px; }
+  .cfx-popup-body { padding: 20px 20px 22px; }
+}
+
+/* Botón rápido WhatsApp en ficha de producto */
+.cfx-wa-quick {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  width: 100%; padding: 13px; background: #25d366; color: #fff;
+  border-radius: var(--r); font-size: 14px; font-weight: 700;
+  text-decoration: none; transition: background .18s, transform .18s;
+  font-family: 'Inter', sans-serif;
+}
+.cfx-wa-quick:hover { background: #1eb955; transform: translateY(-1px); }
+.cfx-wa-quick svg { width: 18px; height: 18px; }
+.cfx-wa-quick-note { font-size: 11.5px; color: var(--text-3); text-align: center; margin-top: 8px; }
+
+/* Botón rápido WhatsApp en cards de catálogo */
+.pl-wa-quick {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px; background: #f0fdf5; color: #1a9145; border-top: 1px solid var(--border);
+  font-size: 12px; font-weight: 700; text-decoration: none; transition: background .15s;
+}
+.pl-wa-quick:hover { background: #dcfce7; }
+.pl-wa-quick svg { width: 14px; height: 14px; }

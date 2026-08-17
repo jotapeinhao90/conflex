@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=20" />
+  <link rel="stylesheet" href="css/style.css?v=21" />
   <!-- Google tag (Google Ads) — cuenta Conflex 135-925-0092 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18395458623"></script>
   <script>
@@ -174,7 +174,7 @@
           </div>
           <div><h4>Contacto</h4>
             <a href="mailto:jpbayas@jpbmarketing.cl">jpbayas@jpbmarketing.cl</a>
-            <a href="tel:+56944843503">+569 4484 3503</a>
+            <a href="tel:+56979440758">+569 7944 0758</a>
             <span>Región Metropolitana</span>
           </div>
         </div>
@@ -191,7 +191,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=17"></script>
+  <script src="js/main.js?v=18"></script>
   <script src="js/products.js?v=14"></script>
   <script src="js/catalog.js"></script>
   <script>
@@ -323,6 +323,11 @@
         <div class="pd-selector">
           ${buildSelector()}
         </div>
+        <a href="#" id="pd-wa-quick" class="cfx-wa-quick" style="margin-top:14px" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3c1.5.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.9 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/></svg>
+          Cotizar este producto por WhatsApp
+        </a>
+        <p class="cfx-wa-quick-note">Respuesta inmediata en horario hábil</p>
         <div style="margin-top:14px;padding:16px;background:#fff;border:1px solid var(--border);border-radius:var(--r);text-align:center">
           <p style="font-size:12.5px;color:var(--text-2);margin-bottom:10px">¿Necesitas asesoría técnica?</p>
           <a href="contacto.html" class="btn-primary" style="font-size:13px;padding:10px 20px">Hablar con un asesor</a>
@@ -338,6 +343,19 @@
       const lbl = document.getElementById('qp-total-label');
       if (lbl) { const c = getCart(); lbl.textContent = c.reduce((s,i)=>s+(i.qty||1),0) + ' unid.'; }
     }, 500);
+
+    /* Botón rápido de cotización por WhatsApp con mensaje prellenado */
+    const waQuick = document.getElementById('pd-wa-quick');
+    function updateWaQuick() {
+      if (!waQuick || typeof conflexWaLink !== 'function') return;
+      const qtyInput = wrap.querySelector('.cp-qty-input');
+      const qty = qtyInput ? qtyInput.value : 1;
+      const msg = `Hola, quiero cotizar el producto "${prod.name}" (${prod.line}). Cantidad: ${qty} unidades. Vi el producto en conflex.cl`;
+      waQuick.href = conflexWaLink(msg);
+    }
+    updateWaQuick();
+    wrap.addEventListener('input', e => { if (e.target.classList.contains('cp-qty-input')) updateWaQuick(); });
+    wrap.addEventListener('click', e => { if (e.target.closest('.cp-qty-btn')) setTimeout(updateWaQuick, 0); });
   });
   </script>
 </body>

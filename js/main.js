@@ -163,26 +163,34 @@ function initCatalogFilters(opts) {
 
   function cardHtml(id) {
     const p = PRODUCTS[id];
+    const waMsg = `Hola, quiero cotizar el producto "${p.name}" (${p.line}). Vi el producto en conflex.cl`;
+    const waHref = (typeof conflexWaLink === 'function') ? conflexWaLink(waMsg) : `https://wa.me/56979440758?text=${encodeURIComponent(waMsg)}`;
     return `
-      <a href="producto.html?id=${id}" class="pl-card fade-3d">
-        <div class="pl-photo">
-          <img src="img/products/${id}.png?v=${IMG_V}" alt="${p.name}" loading="lazy"
-            onerror="if(this.src.indexOf('.png')>-1){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
-          <div class="pl-photo-ph">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <span>Foto próximamente</span>
+      <div class="pl-card fade-3d">
+        <a href="producto.html?id=${id}" class="pl-card-link" style="display:contents;text-decoration:none;color:inherit">
+          <div class="pl-photo">
+            <img src="img/products/${id}.png?v=${IMG_V}" alt="${p.name}" loading="lazy"
+              onerror="if(this.src.indexOf('.png')>-1){this.src=this.src.replace('.png','.jpg')}else{this.style.display='none';var ph=this.parentElement.querySelector('.pl-photo-ph');if(ph)ph.style.display='flex'}" />
+            <div class="pl-photo-ph">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span>Foto próximamente</span>
+            </div>
           </div>
-        </div>
-        <div class="pl-body">
-          <div class="pl-name">${p.name}</div>
-          <div class="pl-desc">${p.desc.split('.')[0]}.</div>
-          <div class="pl-tags">${p.specs.map(s=>`<span class="pl-tag">${s}</span>`).join('')}</div>
-          <div class="pl-cta">
-            <span>Ver medidas y cotizar</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="pl-body">
+            <div class="pl-name">${p.name}</div>
+            <div class="pl-desc">${p.desc.split('.')[0]}.</div>
+            <div class="pl-tags">${p.specs.map(s=>`<span class="pl-tag">${s}</span>`).join('')}</div>
+            <div class="pl-cta">
+              <span>Ver medidas y cotizar</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
           </div>
-        </div>
-      </a>`;
+        </a>
+        <a href="${waHref}" target="_blank" rel="noopener" class="pl-wa-quick" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3c1.5.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.9 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/></svg>
+          Cotizar por WhatsApp
+        </a>
+      </div>`;
   }
 
   function groupBlockHtml(g) {
@@ -334,3 +342,129 @@ function initCatalogFilters(opts) {
     renderGrid();
   }
 }
+
+/* =====================
+   CTAs flotantes sitewide: WhatsApp + Cotizar
+   Popup de captura de leads (se abre solo una vez, a los 3s)
+   ===================== */
+(function conflexLeads() {
+  const WA_NUMBER = '56979440758';
+  const WA_DEFAULT_MSG = 'Hola, quiero cotizar productos Conflex (tuberías, fittings PVC).';
+  const LEAD_ENDPOINT = 'https://formsubmit.co/ajax/jpbayas@jpbmarketing.cl';
+  const LEAD_CC = 'p.martinez@plastiservi.cl';
+
+  function waLink(msg) {
+    return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg || WA_DEFAULT_MSG)}`;
+  }
+  window.conflexWaLink = waLink;
+
+  const waIcon = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3c1.5.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3.3.9.9-3.2-.2-.3C3.9 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/></svg>`;
+  const quoteIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+  const closeIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
+  const checkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>`;
+  const boltIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`;
+
+  /* Botones flotantes */
+  const fabWrap = document.createElement('div');
+  fabWrap.innerHTML = `
+    <a class="cfx-fab cfx-fab-wa" id="cfx-fab-wa" href="${waLink()}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+      <span class="cfx-fab-wa-pulse"></span>
+      ${waIcon}
+      <span class="cfx-fab-label-full">WhatsApp</span>
+    </a>
+    <button class="cfx-fab cfx-fab-quote" id="cfx-fab-quote" type="button" aria-label="Solicitar cotización">
+      ${quoteIcon}
+      <span class="cfx-fab-label-full">Cotizar</span>
+    </button>`;
+  document.body.appendChild(fabWrap);
+
+  /* Popup de cotización */
+  const popup = document.createElement('div');
+  popup.className = 'cfx-popup-overlay';
+  popup.id = 'cfx-popup';
+  popup.innerHTML = `
+    <div class="cfx-popup">
+      <button class="cfx-popup-close" id="cfx-popup-close" type="button" aria-label="Cerrar">${closeIcon}</button>
+      <div id="cfx-popup-form-wrap">
+        <div class="cfx-popup-head">
+          <span class="cfx-popup-badge">${boltIcon} Respuesta en 24–48h hábiles</span>
+          <h3>Solicita tu cotización</h3>
+          <p>Cuéntanos qué productos necesitas y te contactamos con precio directo de fábrica.</p>
+        </div>
+        <form class="cfx-popup-body" id="cfx-lead-form">
+          <div class="cfx-popup-row">
+            <div class="cfx-f"><label>Nombre <span class="req">*</span></label><input type="text" name="nombre" placeholder="Tu nombre" required /></div>
+            <div class="cfx-f"><label>Empresa <span class="req">*</span></label><input type="text" name="empresa" placeholder="Razón social" required /></div>
+          </div>
+          <div class="cfx-f"><label>Email <span class="req">*</span></label><input type="email" name="email" placeholder="tu@empresa.cl" required /></div>
+          <div class="cfx-popup-row">
+            <div class="cfx-f"><label>Producto(s) <span class="req">*</span></label><input type="text" name="producto" placeholder="Ej: Codos PVC 110mm" required /></div>
+            <div class="cfx-f"><label>Cantidad <span class="req">*</span></label><input type="text" name="cantidad" placeholder="Ej: 200 unidades" required /></div>
+          </div>
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="_subject" value="Solicitud de cotización — Conflex web" />
+          <input type="hidden" name="_cc" value="${LEAD_CC}" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="pagina" value="" />
+          <div class="cfx-trust-mini">
+            <div class="cfx-trust-mini-item">${checkIcon} Precio directo de fábrica, sin intermediarios</div>
+            <div class="cfx-trust-mini-item">${checkIcon} Norma NCh e ISO en todos los productos</div>
+            <div class="cfx-trust-mini-item">${checkIcon} Despacho a todo Chile</div>
+          </div>
+          <button type="submit" class="cfx-popup-submit" id="cfx-lead-submit">${quoteIcon} Enviar solicitud</button>
+          <div class="cfx-popup-error" id="cfx-lead-error">No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos por WhatsApp.</div>
+        </form>
+      </div>
+      <div class="cfx-popup-ok" id="cfx-popup-ok">
+        <div class="cfx-popup-ok-icon">${checkIcon}</div>
+        <h3>¡Solicitud enviada!</h3>
+        <p>Gracias, recibimos tu solicitud de cotización.<br>Te contactamos en menos de 24–48 horas hábiles.</p>
+      </div>
+    </div>`;
+  document.body.appendChild(popup);
+  popup.querySelector('[name="pagina"]').value = location.pathname.split('/').pop() || 'index.html';
+
+  function openPopup() { popup.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closePopup() { popup.classList.remove('open'); document.body.style.overflow = ''; }
+
+  document.getElementById('cfx-fab-quote').addEventListener('click', openPopup);
+  document.getElementById('cfx-popup-close').addEventListener('click', closePopup);
+  popup.addEventListener('click', e => { if (e.target === popup) closePopup(); });
+
+  const leadForm = document.getElementById('cfx-lead-form');
+  leadForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('cfx-lead-submit');
+    const errorEl = document.getElementById('cfx-lead-error');
+    errorEl.classList.remove('show');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(leadForm)))
+    })
+      .then(res => { if (!res.ok) throw new Error('send failed'); })
+      .then(() => {
+        document.getElementById('cfx-popup-form-wrap').style.display = 'none';
+        document.getElementById('cfx-popup-ok').classList.add('show');
+        try { sessionStorage.setItem('conflex_lead_sent', '1'); } catch (err) {}
+      })
+      .catch(() => {
+        errorEl.classList.add('show');
+        btn.disabled = false;
+        btn.innerHTML = `${quoteIcon} Enviar solicitud`;
+      });
+  });
+
+  /* Auto-apertura a los 3 segundos, una sola vez por sesión */
+  try {
+    if (!sessionStorage.getItem('conflex_popup_shown') && !sessionStorage.getItem('conflex_lead_sent')) {
+      setTimeout(() => {
+        if (!popup.classList.contains('open')) openPopup();
+        sessionStorage.setItem('conflex_popup_shown', '1');
+      }, 3000);
+    }
+  } catch (err) {}
+})();

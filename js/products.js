@@ -8,6 +8,13 @@ const IMG_V = 3;
 const PRODUCTS = {
 
   /* ---- LÍNEA CONDUIT ---- */
+  'conduit-tubo': {
+    name: 'Tubería Conduit', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
+    desc: 'Tubo PVC rígido para instalaciones eléctricas conduit: protege y canaliza el cableado en obra civil, industrial y subterránea. Disponible en Clase I (750N, resistencia media), Clase II y Clase III (1250N, resistencia fuerte) según la exigencia mecánica del tendido. Se complementa con curvas, coplas y terminales de la misma línea Conduit.',
+    specs: ['Norma NCh 2114 / IEC 61386','PVC rígido autoextinguible','Clases I, II y III','40 – 160 mm'],
+    hasType:false, hasClass:true,
+    classes:{'I':['110mm'],'II':['63mm','75mm','90mm','110mm','140mm','160mm'],'III':['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm']}
+  },
   'conduit-curvas-90': {
     name: 'Curvas 90°', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
     desc: 'Permite cambios de ángulo a 90° en cañerías conduit. Disponible en tipo Cementar (adhesivo) y Anger (junta elástica, sin adhesivo). Clases I–IV según resistencia mecánica.',
@@ -85,6 +92,13 @@ const PRODUCTS = {
   },
 
   /* ---- FITTING SCHEDULE 40/80 ---- */
+  'sch4080-tubo': {
+    name: 'Tubería Schedule 40/80', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
+    desc: 'Tubo PVC Schedule en color naranja para instalaciones eléctricas industriales de alta exigencia. Schedule 40 de pared estándar y Schedule 80 de pared reforzada, con mayor resistencia al impacto y a la compresión. Compatible con curvas, coplas y terminales Schedule 40/80.',
+    specs: ['Norma ASTM D-1785','PVC naranja rígido','Schedule 40 y 80','1" – 8"'],
+    hasType:true, hasClass:false, typeLabel:'Schedule',
+    types:{'Sch 40':['1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"'],'Sch 80':['1"','1¼"','1½"','2"','2½"','3"','4"','5"','6"','8"']}
+  },
   'sch4080-curvas-90': {
     name: 'Curvas 90°', line: 'Fitting Schedule 40/80', lineSlug: 'schedule-40-80', lineUrl: 'schedule-40-80.html',
     desc: 'Curva 90° Schedule 40/80 en PVC naranja. Schedule 40 pared estándar; Schedule 80 pared reforzada y mayor resistencia a presión. De 1/2" a 8".',
@@ -244,6 +258,18 @@ const PRODUCTS = {
   },
 
   /* ---- FITTING HIDRÁULICO ---- */
+  'hidraul-tubo': {
+    name: 'Tubería Hidráulica', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
+    desc: 'Tubo PVC para redes de agua potable, riego y distribución de fluidos a presión. Disponible en presión nominal PN 6, PN 10 y PN 16 (bar) según la exigencia de la red. Extremo espiga compatible con unión Cementar (adhesivo) o Anger (junta elástica) y con curvas, coplas y reducciones de la línea Fitting Hidráulico.',
+    specs: ['Norma NCh 399','PVC rígido presión','PN 6, PN 10 y PN 16','20 – 250 mm'],
+    hasType:true, hasClass:false, typeLabel:'Presión nominal (PN)',
+    types:{
+      'PN-16':['20mm'],
+      'PN-12,5':['25mm'],
+      'PN-10':['32mm','40mm','50mm','63mm','75mm','90mm','110mm','125mm','140mm','160mm','200mm','250mm'],
+      'PN-6':['40mm','50mm','63mm','75mm','90mm','110mm','125mm','140mm','160mm','200mm','250mm']
+    }
+  },
   'hidraul-curvas-90': {
     name: 'Curvas 90°', line: 'Fitting Hidráulico', lineSlug: 'hidraulico', lineUrl: 'hidraulico.html',
     desc: 'Curva 90° hidráulica PVC. Cambio de ángulo en redes de agua potable y distribución de fluidos a presión. Disponible en tipo Anger (junta elástica) y Cementar (adhesivo). PN 10.',

@@ -131,6 +131,7 @@ function handleSubmit(e) {
    ===================== */
 const PLF_ICONS = {
   all:        '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/>',
+  tuberia:    '<rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9V7a2 2 0 012-2M17 9V7a2 2 0 00-2-2"/>',
   curvas:     '<path d="M4 20V10a6 6 0 016-6h10"/>',
   coplas:     '<path d="M10 13a5 5 0 007.07 0l1.41-1.41a5 5 0 00-7.07-7.07L10 6"/><path d="M14 11a5 5 0 00-7.07 0l-1.41 1.41a5 5 0 007.07 7.07L14 18"/>',
   terminales: '<path d="M5 21V4a1 1 0 011-1h13l-4 5 4 5H6"/>',

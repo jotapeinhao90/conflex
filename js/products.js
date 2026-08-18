@@ -3,7 +3,7 @@
    ===================== */
 /* Sube este número cada vez que se reemplace una foto en img/products/
    para forzar que el navegador descargue la versión nueva. */
-const IMG_V = 3;
+const IMG_V = 4;
 
 const PRODUCTS = {
 
@@ -402,6 +402,15 @@ const PRODUCTS = {
       'Anger':  ['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm'],
       'Cementar':['63mm','75mm','90mm','110mm','125mm','140mm','160mm','180mm','200mm','250mm','315mm','355mm','400mm']
     }
+  },
+
+  /* ---- TUBERÍA SANITARIA ---- */
+  'sanitario-tubo': {
+    name: 'Tubería Sanitaria', line: 'Tubería Sanitaria', lineSlug: 'sanitario', lineUrl: 'productos.html#tuberias',
+    desc: 'Tubo PVC gris para redes de desagüe domiciliario, alcantarillado y evacuación de aguas servidas. Unión por cementar (adhesivo). No apto para agua a presión, solo evacuación por gravedad.',
+    specs: ['PVC sanitario gris','Unión cementar','Evacuación por gravedad','40 – 110 mm'],
+    hasType:false, hasClass:false,
+    sizes:['40mm','50mm','75mm','110mm']
   }
 };
 

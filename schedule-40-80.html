@@ -160,7 +160,7 @@
   </footer>
 
   <script src="js/main.js?v=22"></script>
-  <script src="js/products.js?v=17"></script>
+  <script src="js/products.js?v=18"></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     initCatalogFilters({
@@ -169,11 +169,11 @@
       gridEl: document.getElementById('product-grid'),
       filtersEl: document.getElementById('filters'),
       groups: [
-        { id: 'tuberia',    label: 'Tuberías',   match: id => id.startsWith('sch4080-tubo-') },
         { id: 'curvas',     label: 'Curvas',     match: id => id.includes('curvas') },
         { id: 'terminales', label: 'Terminales', match: id => id.includes('terminal-') },
         { id: 'coplas',     label: 'Coplas',      match: id => id.includes('-copla-') },
-        { id: 'espigas',    label: 'Espigas',     match: id => id.includes('espiga') }
+        { id: 'espigas',    label: 'Espigas',     match: id => id.includes('espiga') },
+        { id: 'tuberia',    label: 'Tuberías',   match: id => id.startsWith('sch4080-tubo-') }
       ]
     });
   });

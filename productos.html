@@ -171,10 +171,13 @@
       .prod-zone { border-radius:16px; padding:28px 28px 32px; margin-top:32px; }
       .prod-zone--elec  { background:#fffbf7; border:1.5px solid #fde8d0; border-left:4px solid #e85c1a; }
       .prod-zone--hidraul { background:#f0f9ff; border:1.5px solid #bae6fd; border-left:4px solid #0369a1; }
+      .prod-zone--tuberia { background:#f2fbfa; border:1.5px solid #b7e5e0; border-left:4px solid #0f766e; margin-top:0; }
       .prod-zone-head { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
       .prod-zone-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
       .prod-zone--elec  .prod-zone-icon { background:#fff3e0; }
       .prod-zone--hidraul .prod-zone-icon { background:#e0f2fe; }
+      .prod-zone--tuberia .prod-zone-icon { background:#ccfbf1; }
+      .cat-badge--tuberia { background:#ccfbf1; color:#0f766e; }
       .prod-zone-title { font-size:17px; font-weight:700; color:var(--navy); margin:0 0 2px; }
       .prod-zone-sub   { font-size:13px; color:var(--text-2); margin:0; }
     </style>
@@ -184,6 +187,142 @@
           <p class="eyebrow center">Catálogos con medidas y selector</p>
           <h2 class="center">Elige tu producto y medida</h2>
           <p style="text-align:center;color:var(--text-2);font-size:15px;margin-top:8px;max-width:520px;margin-left:auto;margin-right:auto">Selecciona tipo, clase y diámetro. Agrega a tu cotización en segundos.</p>
+        </div>
+
+        <!-- ZONA TUBERÍAS (parte principal, separada de los acoples/fitting) -->
+        <div class="prod-zone prod-zone--tuberia">
+          <div class="prod-zone-head">
+            <div class="prod-zone-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9V7a2 2 0 012-2M17 9V7a2 2 0 00-2-2"/></svg>
+            </div>
+            <div>
+              <p class="prod-zone-title">Tuberías</p>
+              <p class="prod-zone-sub">El tubo — la parte principal de cada red. Hidráulica a presión, Schedule industrial y Conduit eléctrica.</p>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+
+          <!-- Tubería Hidráulica PN-10 -->
+          <a href="hidraulico.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/hidraul-tubo-pn10.png" alt="Tubería Hidráulica PN-10" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Para agua a presión</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Hidráulica PN-10</div>
+                <div class="cat-desc">Tubo PVC presión nominal PN-10 para agua potable, riego y distribución industrial. Norma NCh 399, de 32 a 250 mm.</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Hidráulica PN-6 -->
+          <a href="hidraulico.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/hidraul-tubo-pn6.png" alt="Tubería Hidráulica PN-6" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Para agua a presión</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Hidráulica PN-6</div>
+                <div class="cat-desc">Tubo PVC presión nominal PN-6 para redes de agua y riego de menor exigencia de presión. Norma NCh 399, de 40 a 250 mm.</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Hidráulica PN-16/12,5 -->
+          <a href="hidraulico.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/hidraul-tubo-pn16.png" alt="Tubería Hidráulica PN-16 y PN-12,5" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Para agua a presión</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Hidráulica PN-16 / PN-12,5</div>
+                <div class="cat-desc">Tubo PVC de alta presión para arranques de red y conexiones domiciliarias. Norma NCh 399, 20 y 25 mm.</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Schedule 40 -->
+          <a href="schedule-40-80.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/sch4080-tubo-40.png" alt="Tubería Schedule 40" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Uso industrial</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Schedule 40</div>
+                <div class="cat-desc">Tubo PVC naranja Schedule 40, pared estándar, para instalaciones eléctricas industriales. Norma ASTM D-1785, de 1" a 8".</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Schedule 80 -->
+          <a href="schedule-40-80.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/sch4080-tubo-80.png" alt="Tubería Schedule 80" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Uso industrial</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Schedule 80</div>
+                <div class="cat-desc">Tubo PVC naranja Schedule 80, pared reforzada, mayor resistencia a impacto y compresión. Norma ASTM D-1785, de 1" a 8".</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Conduit Clase I -->
+          <a href="conduit.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/conduit-tubo-clase1.png" alt="Tubería Conduit Clase I" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Para cables eléctricos</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Conduit Clase I</div>
+                <div class="cat-desc">Tubo PVC Clase I (750N) para canalización eléctrica de baja exigencia mecánica. Norma NCh 2114 / IEC 61386, 110 mm.</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Conduit Clase II -->
+          <a href="conduit.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/conduit-tubo-clase2.png" alt="Tubería Conduit Clase II" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Para cables eléctricos</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Conduit Clase II</div>
+                <div class="cat-desc">Tubo PVC Clase II para canalización eléctrica de exigencia media en obra civil e industrial. Norma NCh 2114 / IEC 61386, de 63 a 160 mm.</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Tubería Conduit Clase III -->
+          <a href="conduit.html#tuberia" style="text-decoration:none">
+            <div class="cat-card">
+              <div class="cat-img-wrap"><img src="img/products/conduit-tubo-clase3.png" alt="Tubería Conduit Clase III" loading="lazy" /></div>
+              <div class="cat-use-bar">
+                <span class="cat-badge cat-badge--tuberia">Para cables eléctricos</span>
+              </div>
+              <div class="cat-info">
+                <div class="cat-title">Tubería Conduit Clase III</div>
+                <div class="cat-desc">Tubo PVC Clase III (1250N) para canalización eléctrica subterránea y de alta exigencia mecánica. Norma NCh 2114 / IEC 61386, de 40 a 160 mm.</div>
+                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+              </div>
+            </div>
+          </a>
+
+          </div>
         </div>
 
         <!-- ZONA ELÉCTRICO E INDUSTRIAL -->
@@ -284,32 +423,6 @@
             </div>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
-
-          <!-- Tubería Hidráulica -->
-          <a href="hidraulico.html#tuberia" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/hidraul-tubo.png" alt="Tubería Hidráulica" loading="lazy" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--hidraul">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
-                  Para agua a presión
-                </span>
-                <div class="anim-pressure">
-                  <div class="anim-pressure-core"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                </div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Tubería Hidráulica</div>
-                <div class="cat-desc">Tubo PVC para agua potable, riego y distribución a presión. Presión nominal PN 6, PN 10 y PN 16, de 20 a 250 mm. Norma NCh 399.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
-            </div>
-          </a>
 
           <!-- Curvas Hidráulicas -->
           <a href="hidraulico.html#curvas" style="text-decoration:none">
@@ -629,7 +742,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20"></script>
+  <script src="js/main.js?v=21"></script>
   <script>
     const PRODUCTS = {
       hidraulica: {

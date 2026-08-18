@@ -102,7 +102,7 @@
     <section class="section" style="padding:48px 0 56px">
       <div class="container">
         <div class="sec-head fade-up" style="margin-bottom:0">
-          <p class="eyebrow center">15 productos</p>
+          <p class="eyebrow center">16 productos</p>
           <h2 class="center">Selecciona el producto</h2>
           <p style="text-align:center;color:var(--text-2);font-size:14.5px;max-width:480px;margin:10px auto 0">Haz clic en cualquier producto para ver las medidas disponibles y agregar a tu cotización.</p>
         </div>
@@ -161,8 +161,8 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20"></script>
-  <script src="js/products.js?v=15"></script>
+  <script src="js/main.js?v=21"></script>
+  <script src="js/products.js?v=16"></script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     initCatalogFilters({
@@ -171,7 +171,7 @@
       gridEl: document.getElementById('product-grid'),
       filtersEl: document.getElementById('filters'),
       groups: [
-        { id: 'tuberia',     label: 'Tuberías',    match: id => id === 'hidraul-tubo' },
+        { id: 'tuberia',     label: 'Tuberías',    match: id => id.startsWith('hidraul-tubo-') },
         { id: 'curvas',      label: 'Curvas',      match: id => id.includes('-curvas-') },
         { id: 'coplas',      label: 'Coplas',      match: id => id.includes('-copla-') && !id.includes('layflat') },
         { id: 'reducciones', label: 'Reducciones', match: id => id.includes('-reduc-') },

@@ -3,7 +3,7 @@
    ===================== */
 /* Sube este número cada vez que se reemplace una foto en img/products/
    para forzar que el navegador descargue la versión nueva. */
-const IMG_V = 4;
+const IMG_V = 5;
 
 const PRODUCTS = {
 
@@ -18,16 +18,23 @@ const PRODUCTS = {
   'conduit-tubo-clase2': {
     name: 'Tubería Conduit Clase II', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
     desc: 'Tubo PVC rígido Clase II para instalaciones eléctricas de exigencia media: losas, muros y canalizaciones embutidas en obra civil e industrial. Se complementa con curvas, coplas y terminales de la línea Conduit.',
-    specs: ['Norma NCh 2114 / IEC 61386','PVC rígido autoextinguible','Clase II','63 – 160 mm'],
+    specs: ['Norma NCh 2114 / IEC 61386','PVC rígido autoextinguible','Clase II','40 – 160 mm'],
     hasType:false, hasClass:false,
-    sizes:['63mm','75mm','90mm','110mm','140mm','160mm']
+    sizes:['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm']
   },
   'conduit-tubo-clase3': {
     name: 'Tubería Conduit Clase III', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
     desc: 'Tubo PVC rígido Clase III (1250N, resistencia fuerte) para canalización eléctrica subterránea y en zonas de tránsito vehicular o alta exigencia mecánica. Se complementa con curvas, coplas y terminales de la línea Conduit.',
-    specs: ['Norma NCh 2114 / IEC 61386','PVC rígido autoextinguible','Clase III — 1250N','40 – 160 mm'],
+    specs: ['Norma NCh 2114 / IEC 61386','PVC rígido autoextinguible','Clase III — 1250N','25 – 160 mm'],
     hasType:false, hasClass:false,
-    sizes:['40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm']
+    sizes:['25mm','32mm','40mm','50mm','63mm','75mm','90mm','110mm','140mm','160mm']
+  },
+  'conduit-tubo-clase4': {
+    name: 'Tubería Conduit Clase IV', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',
+    desc: 'Tubo PVC rígido Clase IV (1250N) de diámetro chico, para canalización eléctrica embutida en muros y losas en instalaciones domiciliarias y de baja carga de cables. Se complementa con curvas, coplas y terminales de la línea Conduit.',
+    specs: ['Norma NCh 2114 / IEC 61386','PVC rígido autoextinguible','Clase IV — 1250N','16 – 20 mm'],
+    hasType:false, hasClass:false,
+    sizes:['16mm','20mm']
   },
   'conduit-curvas-90': {
     name: 'Curvas 90°', line: 'Línea Conduit', lineSlug: 'conduit', lineUrl: 'conduit.html',

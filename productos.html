@@ -111,166 +111,79 @@
 
     <!-- CATÁLOGOS CON MEDIDAS -->
     <style>
-      .cat-card { background:#fff; border:1.5px solid var(--border); border-radius:var(--r-lg); overflow:hidden; display:flex; flex-direction:column; transition:border-color .2s,box-shadow .2s; cursor:pointer; max-width:230px; }
-      .cat-card:hover { border-color:rgba(232,92,26,.4); box-shadow:0 6px 28px rgba(0,0,0,.09); }
-      .cat-img-wrap { aspect-ratio:4/3; background:var(--off); overflow:hidden; display:flex; align-items:center; justify-content:center; }
-      .cat-img-wrap img { width:100%; height:100%; object-fit:contain; padding:10px; }
-      .cat-use-bar { display:flex; align-items:center; justify-content:space-between; padding:10px 18px; border-top:1px solid var(--border); background:#fafaf9; }
-      .cat-badge { display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:4px 10px; border-radius:100px; }
-      .cat-badge--elec  { background:#fff8e6; color:#b45309; }
-      .cat-badge--water { background:#e0f2fe; color:#0369a1; }
-      .cat-badge--uv    { background:#f0fdf4; color:#15803d; }
-      .cat-badge--ind   { background:#f3f0ff; color:#6d28d9; }
+      /* Tarjeta compacta de categoría */
+      .cat-card { width:150px; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; text-decoration:none; transition:border-color .15s,box-shadow .15s,transform .15s; }
+      .cat-card:hover { border-color:rgba(232,92,26,.35); box-shadow:0 4px 14px rgba(0,0,0,.08); transform:translateY(-1px); }
+      .cat-img { height:92px; background:var(--off); overflow:hidden; }
+      .cat-img img { width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+      .cat-body { padding:8px 10px 10px; display:flex; flex-direction:column; gap:3px; }
+      .cat-tag { font-size:8.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; }
+      .cat-tag--elec, .cat-tag--ind { color:#b45309; }
+      .cat-tag--uv      { color:#15803d; }
+      .cat-tag--hidraul { color:#0369a1; }
+      .cat-tag--tuberia { color:#0f766e; }
+      .cat-name { font-size:12px; font-weight:700; color:var(--navy); line-height:1.25; }
+      .cat-desc2 { font-size:10px; color:var(--text-2); line-height:1.4; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 
-      /* Electric wire: glowing dot runs left→right */
-      .anim-wire { position:relative; width:52px; height:4px; background:#ffe4b2; border-radius:2px; overflow:hidden; }
-      .anim-wire::after { content:''; position:absolute; top:0; left:-60%; width:60%; height:100%; background:linear-gradient(90deg,transparent,#f59e0b,transparent); animation:wire 1.3s linear infinite; }
-      @keyframes wire { to { left:110%; } }
+      /* Fila de categorías */
+      .cat-row { display:flex; flex-wrap:wrap; gap:10px; }
 
-      /* Water: 3 columns rise/fall */
-      .anim-drops { display:flex; align-items:flex-end; gap:4px; height:18px; }
-      .anim-drops span { display:block; width:5px; background:#38bdf8; border-radius:3px 3px 2px 2px; animation:drops 1.1s ease-in-out infinite; }
-      .anim-drops span:nth-child(2) { animation-delay:.22s; }
-      .anim-drops span:nth-child(3) { animation-delay:.44s; }
-      @keyframes drops { 0%,100%{height:4px;opacity:.4} 50%{height:16px;opacity:1} }
-
-      /* Industrial: rotating gear */
-      .anim-ind { display:flex; align-items:center; justify-content:center; width:22px; height:22px; }
-      .anim-ind svg { width:18px; height:18px; color:#6d28d9; animation:ind-spin 3s linear infinite; }
-      @keyframes ind-spin { to { transform:rotate(360deg); } }
-
-      /* UV sun: expanding rings */
-      .anim-uv { position:relative; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
-      .anim-uv-core { width:7px; height:7px; background:#16a34a; border-radius:50%; position:relative; z-index:1; }
-      .anim-uv-ring { position:absolute; border:1.5px solid #16a34a; border-radius:50%; opacity:0; animation:uv-ring 2s ease-out infinite; }
-      .anim-uv-ring:nth-child(2){width:13px;height:13px;animation-delay:.35s}
-      .anim-uv-ring:nth-child(3){width:19px;height:19px;animation-delay:.7s}
-      .anim-uv-ring:nth-child(4){width:25px;height:25px;animation-delay:1.05s}
-      @keyframes uv-ring { 0%{opacity:.7;transform:scale(.5)} 100%{opacity:0;transform:scale(1)} }
-
-      /* Hydraulic pressure: pulse waves from center */
-      .cat-badge--hidraul { background:#e0f2fe; color:#0369a1; }
-      .anim-pressure { position:relative; width:22px; height:22px; display:flex; align-items:center; justify-content:center; }
-      .anim-pressure-core { width:7px; height:7px; background:#0369a1; border-radius:50%; position:relative; z-index:1; }
-      .anim-pressure-ring { position:absolute; border:1.5px solid #0369a1; border-radius:50%; opacity:0; animation:pressure-ring 1.6s ease-out infinite; }
-      .anim-pressure-ring:nth-child(2){width:13px;height:13px;animation-delay:.28s}
-      .anim-pressure-ring:nth-child(3){width:19px;height:19px;animation-delay:.56s}
-      .anim-pressure-ring:nth-child(4){width:25px;height:25px;animation-delay:.84s}
-      @keyframes pressure-ring { 0%{opacity:.8;transform:scale(.4)} 100%{opacity:0;transform:scale(1)} }
-
-      .cat-card { height:100%; }
-      .cat-info { padding:12px 14px 14px; display:flex; flex-direction:column; gap:5px; flex:1; }
-      .cat-title { font-size:13.5px; font-weight:700; color:var(--navy); }
-      .cat-desc  { font-size:11.5px; color:var(--text-2); line-height:1.5; flex:1; }
-      .cat-link  { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; color:var(--orange); padding-top:2px; }
-      .cat-use-bar { padding:7px 12px !important; }
-      .cat-badge { font-size:9px !important; padding:3px 8px !important; }
-
-      /* Grid items (los <a>) deben ser flex para heredar altura */
-      .prod-zone a[href] { display:flex; flex-direction:column; }
-
-      /* Zonas */
-      .prod-zone { border-radius:16px; padding:28px 28px 32px; margin-top:32px; }
-      .prod-zone--elec  { background:#fffbf7; border:1.5px solid #fde8d0; border-left:4px solid #e85c1a; }
-      .prod-zone--hidraul { background:#f0f9ff; border:1.5px solid #bae6fd; border-left:4px solid #0369a1; }
-      .prod-zone--tuberia { background:#f2fbfa; border:1.5px solid #b7e5e0; border-left:4px solid #0f766e; margin-top:0; }
-      .prod-zone-head { display:flex; align-items:center; gap:14px; margin-bottom:24px; }
-      .prod-zone-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+      /* Encabezado de zona — plano, sin panel grande */
+      .prod-zone { margin-top:26px; padding-top:18px; border-top:1px solid var(--border); }
+      .prod-zone:first-of-type { border-top:none; padding-top:0; }
+      .prod-zone-head { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+      .prod-zone-icon { width:24px; height:24px; border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
       .prod-zone--elec  .prod-zone-icon { background:#fff3e0; }
       .prod-zone--hidraul .prod-zone-icon { background:#e0f2fe; }
       .prod-zone--tuberia .prod-zone-icon { background:#ccfbf1; }
-      .cat-badge--tuberia { background:#ccfbf1; color:#0f766e; }
-      .prod-zone-title { font-size:17px; font-weight:700; color:var(--navy); margin:0 0 2px; }
-      .prod-zone-sub   { font-size:13px; color:var(--text-2); margin:0; }
+      .prod-zone-title { font-size:13.5px; font-weight:700; color:var(--navy); margin:0; }
+      .prod-zone-sub   { font-size:11px; color:var(--text-2); margin:0; }
     </style>
     <section class="section" style="padding-bottom:0">
-      <div class="container">
+      <div class="container" style="max-width:760px">
         <div class="sec-head fade-up">
           <p class="eyebrow center">Catálogos con medidas y selector</p>
           <h2 class="center">Elige tu producto y medida</h2>
-          <p style="text-align:center;color:var(--text-2);font-size:15px;margin-top:8px;max-width:520px;margin-left:auto;margin-right:auto">Selecciona tipo, clase y diámetro. Agrega a tu cotización en segundos.</p>
+          <p style="text-align:center;color:var(--text-2);font-size:14px;margin-top:6px;max-width:480px;margin-left:auto;margin-right:auto">Selecciona tipo, clase y diámetro. Agrega a tu cotización en segundos.</p>
         </div>
 
         <!-- ZONA ELÉCTRICO E INDUSTRIAL -->
         <div class="prod-zone prod-zone--elec">
           <div class="prod-zone-head">
             <div class="prod-zone-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#e85c1a"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#e85c1a"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
             <div>
               <p class="prod-zone-title">Eléctrico e Industrial</p>
               <p class="prod-zone-sub">Conduit para cables · Schedule para uso industrial pesado y exteriores UV</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,230px));gap:16px">
+          <div class="cat-row">
 
-          <!-- Conduit -->
-          <a href="conduit.html" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/conduit-coplas.png" alt="Acoples Conduit" loading="lazy" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--elec">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                  Para cables eléctricos
-                </span>
-                <div class="anim-wire"></div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Acoples Conduit</div>
-                <div class="cat-desc">Protege conductores eléctricos en muros, losas y subterráneo. Autoextinguible. Tipos Cementar y Anger, Clases I–IV, 16–160mm.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="conduit.html" class="cat-card">
+            <div class="cat-img"><img src="img/products/conduit-coplas.png" alt="Acoples Conduit" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--elec">Para cables eléctricos</span>
+              <div class="cat-name">Acoples Conduit</div>
+              <p class="cat-desc2">Protege conductores eléctricos en muros, losas y subterráneo. Clases I–IV, 16–160mm.</p>
             </div>
           </a>
 
-          <!-- Schedule 40/80 -->
-          <a href="schedule-40-80.html" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/sch4080-curvas-90.png" alt="Fitting Schedule 40/80" loading="lazy" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--ind">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M21 12h-2M5 12H3M19.07 19.07l-1.41-1.41M5.34 5.34L3.93 3.93M12 21v-2M12 5V3"/></svg>
-                  Uso industrial
-                </span>
-                <div class="anim-ind">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M21 12h-2M5 12H3M19.07 19.07l-1.41-1.41M5.34 5.34L3.93 3.93M12 21v-2M12 5V3"/></svg>
-                </div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Fitting Schedule 40/80</div>
-                <div class="cat-desc">Pared gruesa para uso industrial pesado: conduce químicos, fluidos a presión y también como conduit en plantas y minería. Norma ASTM D-1785, de ½" a 8".</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="schedule-40-80.html" class="cat-card">
+            <div class="cat-img"><img src="img/products/sch4080-curvas-90.png" alt="Fitting Schedule 40/80" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--ind">Uso industrial</span>
+              <div class="cat-name">Fitting Schedule 40/80</div>
+              <p class="cat-desc2">Pared gruesa: químicos, fluidos a presión y conduit en plantas y minería. De ½" a 8".</p>
             </div>
           </a>
 
-          <!-- Gris UV -->
-          <a href="schedule-gris-uv.html" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/cat-gris-uv.png?v=2" alt="Schedule Gris UV" loading="lazy" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--uv">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-                  Para exteriores UV
-                </span>
-                <div class="anim-uv">
-                  <div class="anim-uv-core"></div>
-                  <div class="anim-uv-ring"></div>
-                  <div class="anim-uv-ring"></div>
-                  <div class="anim-uv-ring"></div>
-                </div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Schedule Gris UV</div>
-                <div class="cat-desc">Igual que el Schedule naranja pero con protección UV integrada. Para instalaciones expuestas al sol sin degradarse. Schedule 40 y 80, de ½" a 8".</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="schedule-gris-uv.html" class="cat-card">
+            <div class="cat-img"><img src="img/products/cat-gris-uv.png?v=2" alt="Schedule Gris UV" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--uv">Para exteriores UV</span>
+              <div class="cat-name">Schedule Gris UV</div>
+              <p class="cat-desc2">Igual al naranja pero con protección UV para exteriores. Schedule 40 y 80, ½" a 8".</p>
             </div>
           </a>
 
@@ -281,90 +194,39 @@
         <div class="prod-zone prod-zone--hidraul">
           <div class="prod-zone-head">
             <div class="prod-zone-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="#0369a1"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#0369a1"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
             </div>
             <div>
               <p class="prod-zone-title">Acoples Hidráulicos</p>
               <p class="prod-zone-sub">Fitting PVC para agua potable y redes de distribución a presión PN 10</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,230px));gap:16px">
+          <div class="cat-row">
 
-          <!-- Curvas Hidráulicas -->
-          <a href="hidraulico.html#curvas" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/hidraul-curvas-90.png?v=2" alt="Curvas Hidráulicas" loading="lazy" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--hidraul">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
-                  Para agua a presión
-                </span>
-                <div class="anim-pressure">
-                  <div class="anim-pressure-core"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                </div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Curvas Hidráulicas</div>
-                <div class="cat-desc">Cambios de ángulo 90°, 45° y 22,5° en redes de agua potable y distribución a presión. Tipo Anger y Cementar. PN 10, de 32 a 400 mm.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="hidraulico.html#curvas" class="cat-card">
+            <div class="cat-img"><img src="img/products/hidraul-curvas-90.png?v=2" alt="Curvas Hidráulicas" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--hidraul">Para agua a presión</span>
+              <div class="cat-name">Curvas Hidráulicas</div>
+              <p class="cat-desc2">Cambios de ángulo 90°, 45° y 22,5°. Tipo Anger y Cementar. PN 10, 32 a 400 mm.</p>
             </div>
           </a>
 
-          <!-- Coplas y Reducciones -->
-          <a href="hidraulico.html#coplas" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/hidraul-copla-rep.png" alt="Coplas y Reducciones Hidráulicas" loading="lazy" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--hidraul">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
-                  Para agua a presión
-                </span>
-                <div class="anim-pressure">
-                  <div class="anim-pressure-core"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                </div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Coplas y Reducciones</div>
-                <div class="cat-desc">Coplas de reparación y cementar, reducciones y adaptadores Gibault para empalmes y transiciones en redes hidráulicas. PN 10.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="hidraulico.html#coplas" class="cat-card">
+            <div class="cat-img"><img src="img/products/hidraul-copla-rep.png" alt="Coplas y Reducciones Hidráulicas" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--hidraul">Para agua a presión</span>
+              <div class="cat-name">Coplas y Reducciones</div>
+              <p class="cat-desc2">Reparación, cementar, reducciones y adaptadores Gibault. PN 10.</p>
             </div>
           </a>
 
-          <!-- Espigas y Layflat -->
-          <a href="hidraulico.html#espigas" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap">
-                <img src="img/products/hidraul-espiga-soldar.png?v=2" alt="Espigas y Layflat" loading="lazy" onerror="this.onerror=null;this.src='img/products/cat-hidraulico.png'" />
-              </div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--hidraul">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 9.5 4 13 4 16a8 8 0 0016 0c0-3-2-6.5-8-14z"/></svg>
-                  Para agua a presión
-                </span>
-                <div class="anim-pressure">
-                  <div class="anim-pressure-core"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                  <div class="anim-pressure-ring"></div>
-                </div>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Espigas y Layflat</div>
-                <div class="cat-desc">Terminales espiga soldar, coplas espiga y adaptadores layflat para conexión de mangueras flexibles en riego y trasvase de agua.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="hidraulico.html#espigas" class="cat-card">
+            <div class="cat-img"><img src="img/products/hidraul-espiga-soldar.png?v=2" alt="Espigas y Layflat" loading="lazy" onerror="this.onerror=null;this.src='img/products/cat-hidraulico.png'" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--hidraul">Para agua a presión</span>
+              <div class="cat-name">Espigas y Layflat</div>
+              <p class="cat-desc2">Terminales espiga soldar, coplas y adaptadores layflat para mangueras.</p>
             </div>
           </a>
 
@@ -375,72 +237,48 @@
         <div class="prod-zone prod-zone--tuberia" id="tuberias">
           <div class="prod-zone-head">
             <div class="prod-zone-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9V7a2 2 0 012-2M17 9V7a2 2 0 00-2-2"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0f766e" stroke-width="2"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M7 9V7a2 2 0 012-2M17 9V7a2 2 0 00-2-2"/></svg>
             </div>
             <div>
               <p class="prod-zone-title">Tuberías</p>
-              <p class="prod-zone-sub">El tubo — la parte principal de cada red. Hidráulica a presión, Schedule industrial, Conduit eléctrica y sanitaria.</p>
+              <p class="prod-zone-sub">El tubo — parte principal de cada red: hidráulica, Schedule, Conduit y sanitaria</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,230px));gap:16px">
+          <div class="cat-row">
 
-          <!-- Tubería Hidráulica -->
-          <a href="hidraulico.html#tuberia" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap"><img src="img/products/hidraul-tubo-pn10.png?v=2" alt="Tubería Hidráulica" loading="lazy" style="padding:34px" /></div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--tuberia">Para agua a presión</span>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Tubería Hidráulica</div>
-                <div class="cat-desc">Tubo PVC para agua potable, riego y distribución a presión. Presión nominal PN-6, PN-10 y PN-16/12,5. Norma NCh 399, de 20 a 250 mm.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="hidraulico.html#tuberia" class="cat-card">
+            <div class="cat-img"><img src="img/products/hidraul-tubo-pn10.png?v=2" alt="Tubería Hidráulica" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--tuberia">Para agua a presión</span>
+              <div class="cat-name">Tubería Hidráulica</div>
+              <p class="cat-desc2">PN-6, PN-10 y PN-16/12,5. Norma NCh 399, de 20 a 250 mm.</p>
             </div>
           </a>
 
-          <!-- Tubería Schedule 40/80 -->
-          <a href="schedule-40-80.html#tuberia" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap"><img src="img/products/sch4080-tubo-40.png?v=2" alt="Tubería Schedule 40/80" loading="lazy" style="padding:34px" /></div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--tuberia">Uso industrial</span>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Tubería Schedule 40/80</div>
-                <div class="cat-desc">Tubo PVC naranja para instalaciones eléctricas industriales. Schedule 40 pared estándar y Schedule 80 pared reforzada. Norma ASTM D-1785, de 1" a 8".</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="schedule-40-80.html#tuberia" class="cat-card">
+            <div class="cat-img"><img src="img/products/sch4080-tubo-40.png?v=2" alt="Tubería Schedule 40/80" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--tuberia">Uso industrial</span>
+              <div class="cat-name">Tubería Schedule 40/80</div>
+              <p class="cat-desc2">Sch 40 pared estándar y Sch 80 reforzada. ASTM D-1785, 1" a 8".</p>
             </div>
           </a>
 
-          <!-- Tubería Conduit -->
-          <a href="conduit.html#tuberia" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap"><img src="img/products/conduit-tubo-clase1.png?v=2" alt="Tubería Conduit" loading="lazy" style="padding:34px" /></div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--tuberia">Para cables eléctricos</span>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Tubería Conduit</div>
-                <div class="cat-desc">Tubo PVC para canalización eléctrica en obra civil, industrial y subterránea. Clases I, II y III según exigencia mecánica. Norma NCh 2114 / IEC 61386, de 40 a 160 mm.</div>
-                <div class="cat-link">Ver catálogo con medidas <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="conduit.html#tuberia" class="cat-card">
+            <div class="cat-img"><img src="img/products/conduit-tubo-clase1.png?v=2" alt="Tubería Conduit" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--tuberia">Para cables eléctricos</span>
+              <div class="cat-name">Tubería Conduit</div>
+              <p class="cat-desc2">Clases I, II y III según exigencia. NCh 2114 / IEC 61386, 40 a 160 mm.</p>
             </div>
           </a>
 
-          <!-- Tubería Sanitaria -->
-          <a href="producto.html?id=sanitario-tubo" style="text-decoration:none">
-            <div class="cat-card">
-              <div class="cat-img-wrap"><img src="img/products/sanitario-tubo.png?v=2" alt="Tubería Sanitaria" loading="lazy" style="padding:34px" /></div>
-              <div class="cat-use-bar">
-                <span class="cat-badge cat-badge--tuberia">Desagüe y alcantarillado</span>
-              </div>
-              <div class="cat-info">
-                <div class="cat-title">Tubería Sanitaria</div>
-                <div class="cat-desc">Tubo PVC gris para desagüe domiciliario, alcantarillado y evacuación de aguas servidas por gravedad. Unión cementar, de 40 a 110 mm.</div>
-                <div class="cat-link">Ver medidas y cotizar <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-              </div>
+          <a href="producto.html?id=sanitario-tubo" class="cat-card">
+            <div class="cat-img"><img src="img/products/sanitario-tubo.png?v=2" alt="Tubería Sanitaria" loading="lazy" /></div>
+            <div class="cat-body">
+              <span class="cat-tag cat-tag--tuberia">Desagüe y alcantarillado</span>
+              <div class="cat-name">Tubería Sanitaria</div>
+              <p class="cat-desc2">Gris, unión cementar, evacuación por gravedad. 40 a 110 mm.</p>
             </div>
           </a>
 

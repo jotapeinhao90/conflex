@@ -180,7 +180,7 @@
           <div>
             <h4>Contacto</h4>
             <a href="mailto:jpbayas@jpbmarketing.cl">jpbayas@jpbmarketing.cl</a>
-            <a href="tel:+56979440758">+569 7944 0758</a>
+            <a href="https://wa.me/56979440758?text=Hola%2C%20quiero%20cotizar%20productos%20Conflex">+569 7944 0758</a>
             <span>Región Metropolitana</span>
           </div>
         </div>
@@ -194,5 +194,16 @@
   </footer>
 
   <script src="js/main.js?v=22"></script>
+<!-- Google Ads: conversion clic WhatsApp -->
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+    if(a && typeof gtag==='function'){
+      gtag('event','conversion',{'send_to':'AW-18395458623/YHScCMe8muccEL_Y0cNE'});
+    }
+  }, true);
+})();
+</script>
 </body>
 </html>

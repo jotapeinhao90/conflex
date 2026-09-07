@@ -165,7 +165,7 @@ function initCatalogFilters(opts) {
   function cardHtml(id) {
     const p = PRODUCTS[id];
     const waMsg = `Hola, quiero cotizar el producto "${p.name}" (${p.line}). Vi el producto en conflex.cl`;
-    const waHref = (typeof conflexWaLink === 'function') ? conflexWaLink(waMsg) : `https://wa.me/56979440758?text=${encodeURIComponent(waMsg)}`;
+    const waHref = (typeof conflexWaLink === 'function') ? conflexWaLink(waMsg) : `https://wa.me/56972885960?text=${encodeURIComponent(waMsg)}`;
     return `
       <div class="pl-card fade-3d">
         <a href="producto.html?id=${id}" class="pl-card-link" style="display:contents;text-decoration:none;color:inherit">
@@ -349,7 +349,7 @@ function initCatalogFilters(opts) {
    Popup de captura de leads (se abre solo una vez, a los 3s)
    ===================== */
 (function conflexLeads() {
-  const WA_NUMBER = '56979440758';
+  const WA_NUMBER = '56972885960';
   const WA_DEFAULT_MSG = 'Hola, quiero cotizar productos Conflex (tuberías, fittings PVC).';
   const LEAD_ENDPOINT = 'https://conflex-leads.bp-juanpix.workers.dev/api/lead';
 
